@@ -1,0 +1,466 @@
+// js/app.js
+(() => {
+    const TOTAL_TRIALS = 15;
+  
+    const STIMULUS_MS = 1500;
+    const STIMULUS_HALF_MS = 500;
+    const FEEDBACK_MS = 250;
+    const ITI_BUFFER_MS = 750;
+    const PROGRESS_PX = 295;
+  
+    // ---------- storage helpers ----------
+    const S = {
+      getInt(key, fallback) {
+        const v = parseInt(localStorage.getItem(key), 10);
+        return Number.isFinite(v) ? v : fallback;
+      },
+      setInt(key, val) {
+        localStorage.setItem(key, String(val));
+      }
+    };
+  
+    // ---------- reset ----------
+    function resetTestState() {
+      S.setInt("gng_trial", 1);
+      S.setInt("gng_correct", 0);
+      S.setInt("gng_incorrect", 0);
+      S.setInt("gng_misses", 0);
+      S.setInt("gng_current_sequence", 0);
+      S.setInt("Correct_Sequence_Count", 0);
+    }
+  
+    function endTestAndReset() {
+      window.location.href = "GoNoGoResultsPage6.html";
+    }
+  
+    // ---------- navigation ----------
+    function pickStimulusPage50_50() {
+      return Math.random() < 0.5
+        ? "GoNoGoOfficialPage2.html"
+        : "GoNoGoOfficialPage4.html";
+    }
+  
+    function advanceToNextTrialOrEnd() {
+      const current = S.getInt("gng_trial", 1);
+  
+      if (current >= TOTAL_TRIALS) {
+        endTestAndReset();
+        return;
+      }
+  
+      S.setInt("gng_trial", current + 1);
+      window.location.href = pickStimulusPage50_50();
+    }
+  
+    // ---------- UI ----------
+    function setTrialAndProgress() {
+      const trial = S.getInt("gng_trial", 1);
+  
+      const trialEl = document.getElementById("trialNumber");
+      if (trialEl) trialEl.textContent = String(trial);
+  
+      const bar = document.getElementById("progress-bar");
+      if (bar) {
+        const completed = trial - 1;
+        const pct = completed / TOTAL_TRIALS;
+        bar.style.width = `${Math.round(PROGRESS_PX * pct)}px`;
+      }
+    }
+  
+    function fadeStimulusToBackground() {
+      const stimulus = document.getElementById("stimulus");
+      if (!stimulus) return;
+      stimulus.style.background = "#EFEFEF";
+    }
+  
+    // ---------- sequence handling ----------
+    function updateSequence(isSuccessful) {
+      if (isSuccessful) {
+        const currentSeq = S.getInt("gng_current_sequence", 0) + 1;
+        S.setInt("gng_current_sequence", currentSeq);
+  
+        const maxSeq = S.getInt("Correct_Sequence_Count", 0);
+        if (currentSeq > maxSeq) {
+          S.setInt("Correct_Sequence_Count", currentSeq);
+        }
+      } else {
+        S.setInt("gng_current_sequence", 0);
+      }
+    }
+  
+    // ---------- pages ----------
+    function onCountdownPage() {
+      resetTestState();
+
+      // ✅ ONLY ADDITION:
+      // Ensure alertness text exists for results display
+      if (!localStorage.getItem("alertness_text")) {
+        localStorage.setItem(
+          "alertness_text",
+          "I am struggling to stay awake"
+        );
+      }
+  
+      const el = document.getElementById("countdownSeconds");
+      let remaining = 10;
+  
+      if (el) el.textContent = remaining;
+  
+      const t = setInterval(() => {
+        remaining -= 1;
+        if (el) el.textContent = remaining;
+  
+        if (remaining <= 0) {
+          clearInterval(t);
+          window.location.href = pickStimulusPage50_50();
+        }
+      }, 1000);
+    }
+  
+    /**
+     * @param {boolean} isPage2 true = Page 2, false = Page 4
+     */
+    function onStimulusPage(isPage2) {
+      setTrialAndProgress();
+  
+      const goBtn = document.getElementById("goBtn");
+      let responded = false;
+  
+      const halfTimer = setTimeout(fadeStimulusToBackground, STIMULUS_HALF_MS);
+  
+      const stimulusTimer = setTimeout(() => {
+        if (responded) return;
+        clearTimeout(halfTimer);
+  
+        if (isPage2) {
+          S.setInt("gng_correct", S.getInt("gng_correct", 0) + 1);
+          updateSequence(true);
+        } else {
+          S.setInt("gng_incorrect", S.getInt("gng_incorrect", 0) + 1);
+          S.setInt("gng_misses", S.getInt("gng_misses", 0) + 1);
+          updateSequence(false);
+        }
+  
+        advanceToNextTrialOrEnd();
+      }, STIMULUS_MS);
+  
+      if (goBtn) {
+        goBtn.addEventListener("click", () => {
+          if (responded) return;
+          responded = true;
+  
+          clearTimeout(stimulusTimer);
+          clearTimeout(halfTimer);
+  
+          if (isPage2) {
+            S.setInt("gng_incorrect", S.getInt("gng_incorrect", 0) + 1);
+            updateSequence(false);
+            window.location.href = "GoNoGoOfficialPage3.html";
+          } else {
+            S.setInt("gng_correct", S.getInt("gng_correct", 0) + 1);
+            updateSequence(true);
+            window.location.href = "GoNoGoOfficialPage5.html";
+          }
+        });
+      }
+    }
+  
+    function onFeedbackPage() {
+      setTimeout(() => {
+        setTimeout(() => {
+          advanceToNextTrialOrEnd();
+        }, ITI_BUFFER_MS);
+      }, FEEDBACK_MS);
+    }
+  
+    // ---------- router ----------
+    document.addEventListener("DOMContentLoaded", () => {
+      const file = window.location.pathname.split("/").pop();
+  
+      switch (file) {
+        case "GoNoGoCountdownPage1.html":
+          onCountdownPage();
+          break;
+  
+        case "GoNoGoOfficialPage2.html":
+          onStimulusPage(true);
+          break;
+  
+        case "GoNoGoOfficialPage4.html":
+          onStimulusPage(false);
+          break;
+  
+        case "GoNoGoOfficialPage3.html":
+        case "GoNoGoOfficialPage5.html":
+          onFeedbackPage();
+          break;
+  
+        default:
+          break;
+      }
+    });
+})();
+// ==================================================
+// GLOBAL VARIABLES
+// ==================================================
+let Response_Method = localStorage.getItem("response_method") || 'S'; // default 'S'
+let Audio_Option = 'Y';        // 'Y' = Yes (default), 'N' = No
+let Alertness_Level = 1;       // Default alertness level
+let currentTrial = 1;
+let ratio = .5;
+let feedbackDelay = 1500;
+const totalTrials = 10;
+let counterEl;
+let page;
+
+document.addEventListener("DOMContentLoaded", () => {
+  page = window.location.pathname;
+  counterEl = document.getElementById("counter");
+
+  // ------------------------------------------------
+  // RESET ALERTNESS AT PRACTICE START
+  // ------------------------------------------------
+  if (page.includes("GoNoGoIntroductionPage.html")) {
+    Alertness_Level = 1;
+    localStorage.setItem("alertness_level", "1");
+    localStorage.setItem(
+      "alertness_text",
+      "I am struggling to stay awake"
+    );
+
+    localStorage.setItem("count", 1);
+  }
+
+  // ------------------------------------------------
+  // PRACTICE TRIAL COUNTER
+  // ------------------------------------------------
+  if (
+    page.includes("GoNoGoPractice1Page.html") ||
+    page.includes("GoNoGoPractice3Page.html")
+  ) {
+    counterEl.textContent = localStorage.getItem("count") || 1;
+
+    let count = Number(localStorage.getItem("count") || 1);
+    currentTrial = count;
+    count++;
+
+    if (count > totalTrials) {
+      count = 1;
+    }
+
+    localStorage.setItem("count", count);
+  }
+});
+
+
+// ==================================================
+// AUDIO SETUP
+// ==================================================
+const highBeep = new Audio('audio/high_beep.mp3');
+const lowBeep  = new Audio('audio/low_beep.mp3');
+
+// ==================================================
+// UTILITY FUNCTIONS
+// ==================================================
+function updateProgressBar() {
+  const bar = document.getElementById('progress-bar');
+  if (!bar) return;
+
+  const progressWidth = ((currentTrial - 1) / totalTrials) * 295;
+  bar.style.width = `${progressWidth}px`;
+}
+
+function nextTrial() {
+  const nextCount = Number(localStorage.getItem("count") || 1);
+
+  if (nextCount === 1) {
+    window.location.href = "GoNoGoCountdownPage1.html";
+    return;
+  }
+
+  const isGoTrial = Math.random() < ratio;
+  window.location.href = isGoTrial
+    ? 'GoNoGoPractice1Page.html'
+    : 'GoNoGoPractice3Page.html';
+}
+
+
+// ==================================================
+// PAGE LOAD HANDLER
+// ==================================================
+document.addEventListener('DOMContentLoaded', () => {
+
+  const path = window.location.pathname;
+
+  // ------------------------------------------------
+  // PAGE 2: RESPONSE METHOD + AUDIO OPTIONS
+  // ------------------------------------------------
+  const verbalBtn = document.getElementById('verbalBtn');
+  const screenBtn = document.getElementById('screenBtn');
+
+  if (verbalBtn && screenBtn) {
+
+    function setResponseMethod(method) {
+      Response_Method = method;
+
+      // SAVE TO LOCAL STORAGE
+      localStorage.setItem("response_method", method);
+
+      verbalBtn.classList.toggle('selected', method === 'V');
+      verbalBtn.classList.toggle('unselected', method !== 'V');
+
+      screenBtn.classList.toggle('selected', method === 'S');
+      screenBtn.classList.toggle('unselected', method !== 'S');
+    }
+
+    // Restore stored value (default 'S')
+    const storedMethod = localStorage.getItem("response_method") || 'S';
+    setResponseMethod(storedMethod);
+
+    verbalBtn.onclick = () => setResponseMethod('V');
+    screenBtn.onclick = () => setResponseMethod('S');
+  }
+
+  const audioYes = document.getElementById('audioYes');
+  const audioNo  = document.getElementById('audioNo');
+
+  if (audioYes && audioNo) {
+    function setAudioOption(option) {
+      Audio_Option = option;
+
+      audioYes.classList.toggle('selected', option === 'Y');
+      audioYes.classList.toggle('unselected', option !== 'Y');
+
+      audioNo.classList.toggle('selected', option === 'N');
+      audioNo.classList.toggle('unselected', option !== 'N');
+    }
+
+    setAudioOption('Y');
+    audioYes.onclick = () => setAudioOption('Y');
+    audioNo.onclick  = () => setAudioOption('N');
+  }
+
+  // ------------------------------------------------
+  // PAGE 3: ALERTNESS SELECTION
+  // ------------------------------------------------
+  const alertButtons = document.querySelectorAll('.alert-btn');
+
+  if (alertButtons.length > 0) {
+    function setAlertness(level) {
+      Alertness_Level = level;
+      localStorage.setItem("alertness_level", String(level));
+
+      const selectedBtn = [...alertButtons].find(
+        btn => Number(btn.dataset.level) === level
+      );
+
+      if (selectedBtn) {
+        localStorage.setItem(
+          "alertness_text",
+          selectedBtn.textContent.trim()
+        );
+      }
+
+      alertButtons.forEach(btn => {
+        const btnLevel = Number(btn.dataset.level);
+        btn.classList.toggle('selected', btnLevel === level);
+        btn.classList.toggle('unselected', btnLevel !== level);
+      });
+    }
+
+    const storedLevel =
+      Number(localStorage.getItem("alertness_level")) || 1;
+
+    setAlertness(storedLevel);
+
+    alertButtons.forEach(btn => {
+      btn.onclick = () => setAlertness(Number(btn.dataset.level));
+    });
+  }
+
+  // ------------------------------------------------
+  // PAGES 4–7: PRACTICE TRIAL DISPLAY
+  // ------------------------------------------------
+  if (
+    path.includes('GoNoGoPractice1Page.html') ||
+    path.includes('GoNoGoPractice2Page.html') ||
+    path.includes('GoNoGoPractice3Page.html') ||
+    path.includes('GoNoGoPractice4Page.html')
+  ) {
+    updateProgressBar();
+  }
+
+  // ------------------------------------------------
+  // AUDIO ON STIMULUS PAGES (ONLY IF ENABLED)
+  // ------------------------------------------------
+  if (Audio_Option === 'Y') {
+    if (path.includes('GoNoGoPractice1Page.html')) {
+      highBeep.play();
+    }
+
+    if (path.includes('GoNoGoPractice3Page.html')) {
+      lowBeep.play();
+    }
+  }
+
+  // ------------------------------------------------
+  // FEEDBACK PAGES (AUTO-ADVANCE AFTER DELAY)
+  // ------------------------------------------------
+  if (
+    path.includes('GoNoGoPractice2Page.html') ||
+    path.includes('GoNoGoPractice4Page.html')
+  ) {
+    setTimeout(() => {
+      nextTrial();
+    }, feedbackDelay);
+  }
+
+});
+// js/results.js
+(() => {
+    function getInt(key) {
+      const v = parseInt(localStorage.getItem(key), 10);
+      return Number.isFinite(v) ? v : 0;
+    }
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      const correct = getInt("gng_correct");
+      const incorrect = getInt("gng_incorrect");
+      const misses = getInt("gng_misses");
+      const bestStreak = getInt("Correct_Sequence_Count");
+  
+      // UPDATED: total trials inferred from correct + incorrect
+      const totalTrials = correct + incorrect;
+  
+      // ---- Accuracy ----
+      let accuracyText = "0%";
+      if (totalTrials > 0) {
+        const accuracy = Math.round(
+          ((totalTrials - incorrect) / totalTrials) * 100
+        );
+        accuracyText = `${accuracy}%`;
+      }
+  
+      const accuracyEl = document.getElementById("testAccuracy");
+      if (accuracyEl) accuracyEl.textContent = accuracyText;
+  
+      // ---- Response speed (not yet tracked) ----
+      const responseEl = document.getElementById("testResponse");
+      if (responseEl) responseEl.textContent = "N/A";
+  
+      // ---- Best streak ----
+      const sequenceEl = document.getElementById("testSequence");
+      if (sequenceEl) {
+        sequenceEl.textContent = `${bestStreak} in a row`;
+      }
+  
+      // ---- No-Go errors ----
+      const errorsEl = document.getElementById("testErrors");
+      if (errorsEl) errorsEl.textContent = String(incorrect);
+  
+      // ---- Missed Go trials ----
+      const missedEl = document.getElementById("testMissed");
+      if (missedEl) missedEl.textContent = String(misses);
+    });
+  })();
+  

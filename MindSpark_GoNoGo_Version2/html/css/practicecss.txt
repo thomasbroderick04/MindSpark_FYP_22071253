@@ -1,0 +1,214 @@
+/* =========================================
+   GLOBAL CLICK BEHAVIOUR (FIX MOUSE ISSUE)
+   ========================================= */
+
+   #verbalBtn,
+   #screenBtn,
+   #audioYes,
+   #audioNo,
+   .alert-btn,
+   a > div {
+     cursor: pointer;
+     pointer-events: auto;
+   }
+   
+   /* Prevent inner layers from blocking clicks */
+   #verbalBtn > div,
+   #screenBtn > div,
+   #audioYes > div,
+   #audioNo > div,
+   .alert-btn > div,
+   a > div > div {
+     pointer-events: none;
+   }
+   
+   
+   /* =========================================
+      SHARED CARD BEHAVIOUR (NO SQUARE BUG)
+      ========================================= */
+   
+   .selected {
+     border: none !important;
+     border-radius: 14px !important;
+     overflow: hidden !important;
+   }
+   
+   .unselected {
+     border-radius: 14px !important;
+     overflow: hidden !important;
+   }
+   
+   /* Remove inner background layer (prevents square bleed) */
+   .selected > div:first-child,
+   .unselected > div:first-child {
+     background: transparent !important;
+     border: none !important;
+     outline: none !important;
+     box-shadow: none !important;
+   }
+   
+   
+   /* =========================================
+      RESPONSE + AUDIO BUTTONS
+      ========================================= */
+   
+   #verbalBtn.selected,
+   #screenBtn.selected,
+   #audioYes.selected,
+   #audioNo.selected {
+     background: #007E72 !important;
+   }
+   
+   #verbalBtn.unselected,
+   #screenBtn.unselected,
+   #audioYes.unselected,
+   #audioNo.unselected {
+     background: #F1F5F9 !important;
+     border: 1px solid #D1D5DB !important;
+   }
+   
+   /* Icon square */
+   #verbalBtn.selected > div:nth-child(2),
+   #screenBtn.selected > div:nth-child(2),
+   #audioYes.selected > div:nth-child(2),
+   #audioNo.selected > div:nth-child(2) {
+     background: #014841 !important;
+   }
+   
+   /* Unselected response method */
+   #verbalBtn.unselected > div:nth-child(2),
+   #screenBtn.unselected > div:nth-child(2) {
+     background: #F8D8C3 !important;
+   }
+   
+   /* Unselected audio */
+   #audioYes.unselected > div:nth-child(2),
+   #audioNo.unselected > div:nth-child(2) {
+     background: #C2D2F9 !important;
+   }
+   
+   /* Text */
+   #verbalBtn.selected > div:nth-child(3),
+   #verbalBtn.selected > div:nth-child(4),
+   #screenBtn.selected > div:nth-child(3),
+   #screenBtn.selected > div:nth-child(4),
+   #audioYes.selected > div:nth-child(3),
+   #audioYes.selected > div:nth-child(4),
+   #audioNo.selected > div:nth-child(3),
+   #audioNo.selected > div:nth-child(4) {
+     color: #FFFFFF !important;
+   }
+   
+   #verbalBtn.unselected > div:nth-child(3),
+   #verbalBtn.unselected > div:nth-child(4),
+   #screenBtn.unselected > div:nth-child(3),
+   #screenBtn.unselected > div:nth-child(4),
+   #audioYes.unselected > div:nth-child(3),
+   #audioYes.unselected > div:nth-child(4),
+   #audioNo.unselected > div:nth-child(3),
+   #audioNo.unselected > div:nth-child(4) {
+     color: #000000 !important;
+   }
+   
+   /* SVG selected */
+   #verbalBtn.selected svg path,
+   #screenBtn.selected svg path,
+   #audioYes.selected svg path,
+   #audioNo.selected svg path {
+     stroke: #FFFFFF !important;
+   }
+   
+   #verbalBtn.selected svg rect,
+   #screenBtn.selected svg rect,
+   #audioYes.selected svg rect,
+   #audioNo.selected svg rect {
+     fill: #FFFFFF !important;
+   }
+   
+   #verbalBtn.selected svg path[fill],
+   #screenBtn.selected svg path[fill],
+   #audioYes.selected svg path[fill],
+   #audioNo.selected svg path[fill] {
+     fill: #FFFFFF !important;
+   }
+   
+   /* SVG unselected */
+   #verbalBtn.unselected svg path,
+   #screenBtn.unselected svg path {
+     stroke: #E94016 !important;
+   }
+   
+   #audioYes.unselected svg path,
+   #audioNo.unselected svg path {
+     stroke: #0300C4 !important;
+   }
+   
+   #audioNo.unselected svg path[fill] {
+     fill: none !important;
+   }
+   
+   #audioYes.unselected svg rect,
+   #audioNo.unselected svg rect {
+     fill: #0300C4 !important;
+   }
+   
+   
+   /* =========================================
+      ALERTNESS BUTTONS
+      ========================================= */
+   
+   .alert-btn.selected {
+     background: #007E72 !important;
+     border: none !important;
+     outline: none !important;
+     border-radius: 14px !important;
+     overflow: hidden !important;
+   }
+   
+   .alert-btn.unselected {
+     background: #F1F5F9 !important;
+     border: 1px solid #D1D5DB !important;
+     outline: none !important;
+     border-radius: 14px !important;
+     overflow: hidden !important;
+   }
+   
+   /* Number circle */
+   .alert-btn.selected > div:first-child {
+     background: #014841 !important;
+   }
+   
+   .alert-btn.unselected > div:first-child {
+     background: #BADFDB !important;
+   }
+   
+   /* Number text */
+   .alert-btn.selected > div:first-child > div {
+     color: #FFFFFF !important;
+   }
+   
+   .alert-btn.unselected > div:first-child > div {
+     color: #007E72 !important;
+   }
+   
+   /* Label text */
+   .alert-btn.selected > div:nth-child(2) {
+     color: #FFFFFF !important;
+   }
+   
+   .alert-btn.unselected > div:nth-child(2) {
+     color: #000000 !important;
+   }
+
+   #goBtn > div {
+  border: 6px solid rgba(186, 223, 219, 0.5) !important;
+  box-shadow: 0 0 28px #00c9b04d(0, 201, 176, 0.40) !important;
+  box-sizing: border-box;
+  transition: transform 0.08s ease, box-shadow 0.12s ease;
+}
+
+#goBtn:active > div {
+  background: #014841 !important;
+  transform: scale(0.95);
+  box-shadow: 0 0 14px #00c9b04d !important;
+}

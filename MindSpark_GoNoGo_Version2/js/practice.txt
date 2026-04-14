@@ -1,0 +1,215 @@
+let Response_Method = 'S';     // 'S' = Screen select (default), 'V' = Verbal
+let Audio_Option = localStorage.getItem("audio_option") || 'Y';
+let Alertness_Level = 1;       // Default alertness level
+let currentTrial = 1;
+let ratio = .5;
+let feedbackDelay = 1500;
+const totalTrials = 10;
+let counterEl;
+let page;
+
+document.addEventListener("DOMContentLoaded", () => {
+  page = window.location.pathname;
+  counterEl = document.getElementById("counter");
+
+  // ------------------------------------------------
+  // RESET ALERTNESS AT PRACTICE START
+  // ------------------------------------------------
+  if (page.includes("GoNoGoIntroductionPage.html")) {
+    // Default alertness every time practice begins
+    Alertness_Level = 1;
+    localStorage.setItem("alertness_level", "1");
+    localStorage.setItem(
+      "alertness_text",
+      "I am struggling to stay awake"
+    );
+
+    // Reset practice counter
+    localStorage.setItem("count", 1);
+  }
+
+  // ------------------------------------------------
+  // PRACTICE TRIAL COUNTER
+  // ------------------------------------------------
+  if (
+    page.includes("GoNoGoPractice1Page.html") ||
+    page.includes("GoNoGoPractice3Page.html")
+  ) {
+    counterEl.textContent = localStorage.getItem("count") || 1;
+
+    let count = Number(localStorage.getItem("count") || 1);
+    currentTrial = count;
+    count++;
+
+    if (count > totalTrials) {
+      count = 1;
+    }
+
+    localStorage.setItem("count", count);
+  }
+});
+
+
+// ==================================================
+// AUDIO SETUP
+// ==================================================
+const highBeep = new Audio('audio/GoNoGoCircleAudio.mp3');
+const lowBeep  = new Audio('audio/GoNoGoSquareAudio.mp3');
+
+// ==================================================
+// UTILITY FUNCTIONS
+// ==================================================
+function updateProgressBar() {
+  const bar = document.getElementById('progress-bar');
+  if (!bar) return;
+
+  const progressWidth = ((currentTrial - 1) / totalTrials) * 295;
+  bar.style.width = `${progressWidth}px`;
+}
+
+function nextTrial() {
+  // IMPORTANT: nextTrial() is called from the FEEDBACK pages.
+  // On those pages, currentTrial resets to 1, so we must use localStorage state.
+  const nextCount = Number(localStorage.getItem("count") || 1);
+
+  // If count wrapped back to 1, the last practice trial has just completed.
+  if (nextCount === 1) {
+    window.location.href = "GoNoGoCountdownPage1.html";
+    return;
+  }
+
+  const isGoTrial = Math.random() < ratio;
+  window.location.href = isGoTrial
+    ? 'GoNoGoPractice1Page.html'
+    : 'GoNoGoPractice3Page.html';
+}
+
+
+// ==================================================
+// PAGE LOAD HANDLER
+// ==================================================
+document.addEventListener('DOMContentLoaded', () => {
+
+  const path = window.location.pathname;
+
+  // ------------------------------------------------
+  // PAGE 2: RESPONSE METHOD + AUDIO OPTIONS
+  // ------------------------------------------------
+  const verbalBtn = document.getElementById('verbalBtn');
+  const screenBtn = document.getElementById('screenBtn');
+
+  if (verbalBtn && screenBtn) {
+    function setResponseMethod(method) {
+      Response_Method = method;
+
+      verbalBtn.classList.toggle('selected', method === 'V');
+      verbalBtn.classList.toggle('unselected', method !== 'V');
+
+      screenBtn.classList.toggle('selected', method === 'S');
+      screenBtn.classList.toggle('unselected', method !== 'S');
+    }
+
+    setResponseMethod('S'); // default
+    verbalBtn.onclick = () => setResponseMethod('V');
+    screenBtn.onclick = () => setResponseMethod('S');
+  }
+
+  const audioYes = document.getElementById('audioYes');
+  const audioNo  = document.getElementById('audioNo');
+
+  if (audioYes && audioNo) {
+    function setAudioOption(option) {
+      Audio_Option = option;
+      localStorage.setItem('audio_option', option);
+      audioYes.classList.toggle('selected', option === 'Y');
+      audioYes.classList.toggle('unselected', option !== 'Y');
+
+      audioNo.classList.toggle('selected', option === 'N');
+      audioNo.classList.toggle('unselected', option !== 'N');
+    }
+
+    // setAudioOption('Y'); // default
+    audioYes.onclick = () => setAudioOption('Y');
+    audioNo.onclick  = () => setAudioOption('N');
+  }
+
+  // ------------------------------------------------
+  // PAGE 3: ALERTNESS SELECTION
+  // ------------------------------------------------
+  const alertButtons = document.querySelectorAll('.alert-btn');
+
+  if (alertButtons.length > 0) {
+    function setAlertness(level) {
+      Alertness_Level = level;
+      localStorage.setItem("alertness_level", String(level));
+
+      const selectedBtn = [...alertButtons].find(
+        btn => Number(btn.dataset.level) === level
+      );
+
+      if (selectedBtn) {
+        localStorage.setItem(
+          "alertness_text",
+          selectedBtn.textContent.trim()
+        );
+      }
+
+      alertButtons.forEach(btn => {
+        const btnLevel = Number(btn.dataset.level);
+        btn.classList.toggle('selected', btnLevel === level);
+        btn.classList.toggle('unselected', btnLevel !== level);
+      });
+    }
+
+    // Restore stored alertness (defaults to 1)
+    const storedLevel =
+      Number(localStorage.getItem("alertness_level")) || 1;
+
+    setAlertness(storedLevel);
+
+    alertButtons.forEach(btn => {
+      btn.onclick = () => setAlertness(Number(btn.dataset.level));
+    });
+  }
+
+  // ------------------------------------------------
+  // PAGES 4–7: PRACTICE TRIAL DISPLAY
+  // ------------------------------------------------
+  if (
+    path.includes('GoNoGoPractice1Page.html') ||
+    path.includes('GoNoGoPractice2Page.html') ||
+    path.includes('GoNoGoPractice3Page.html') ||
+    path.includes('GoNoGoPractice4Page.html')
+  ) {
+    updateProgressBar();
+  }
+
+  // ------------------------------------------------
+  // AUDIO ON STIMULUS PAGES (ONLY IF ENABLED)
+  // ------------------------------------------------
+  if (Audio_Option === 'Y') {
+    if (path.includes('GoNoGoPractice1Page.html')) {
+      highBeep.play();
+    }
+
+    if (path.includes('GoNoGoPractice3Page.html')) {
+      lowBeep.play();
+    }
+  }
+
+  //highBeep.play();
+
+
+  // ------------------------------------------------
+  // FEEDBACK PAGES (AUTO-ADVANCE AFTER DELAY)
+  // ------------------------------------------------
+  if (
+    path.includes('GoNoGoPractice2Page.html') ||
+    path.includes('GoNoGoPractice4Page.html')
+  ) {
+    setTimeout(() => {
+      nextTrial();
+    }, feedbackDelay);
+  }
+
+});

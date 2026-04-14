@@ -1,0 +1,209 @@
+/* This controls the cursor + clickability of all main interactive cards */
+#verbalBtn,
+#screenBtn,
+#audioYes,
+#audioNo,
+.alert-btn,
+a > div {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* This controls inner layers so they do not block clicks on the parent card */
+#verbalBtn > div,
+#screenBtn > div,
+#audioYes > div,
+#audioNo > div,
+.alert-btn > div,
+a > div > div {
+  pointer-events: none;
+}
+
+
+/* This controls the rounded clipping behaviour for all cards (prevents overflow issues) */
+.selected,
+.unselected {
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+
+/* This controls the removal of borders when a card is selected */
+.selected {
+  border: none !important;
+}
+
+/* This controls the removal of inner background layers that can cause square bleed */
+.selected > div:first-child,
+.unselected > div:first-child {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+/* This controls the background colour of selected response/audio buttons */
+#verbalBtn.selected,
+#screenBtn.selected,
+#audioYes.selected,
+#audioNo.selected {
+  background: #007E72 !important;
+}
+
+/* This controls the background + border of unselected response/audio buttons */
+#verbalBtn.unselected,
+#screenBtn.unselected,
+#audioYes.unselected,
+#audioNo.unselected {
+  background: #F1F5F9 !important;
+  border: 1px solid #D1D5DB !important;
+}
+
+/* This controls the icon square colour when a button is selected */
+#verbalBtn.selected > div:nth-child(2),
+#screenBtn.selected > div:nth-child(2),
+#audioYes.selected > div:nth-child(2),
+#audioNo.selected > div:nth-child(2) {
+  background: #014841 !important;
+}
+
+/* This controls the icon square colour for unselected response method buttons */
+#verbalBtn.unselected > div:nth-child(2),
+#screenBtn.unselected > div:nth-child(2) {
+  background: #F8D8C3 !important;
+}
+
+/* This controls the icon square colour for unselected audio buttons */
+#audioYes.unselected > div:nth-child(2),
+#audioNo.unselected > div:nth-child(2) {
+  background: #C2D2F9 !important;
+}
+
+/* This controls the text colour for selected buttons */
+.selected > div:nth-child(3),
+.selected > div:nth-child(4) {
+  color: #FFFFFF !important;
+}
+
+/* This controls the text colour for unselected buttons */
+.unselected > div:nth-child(3),
+.unselected > div:nth-child(4) {
+  color: #000000 !important;
+}
+
+/* This controls SVG stroke colour for selected buttons */
+.selected svg path {
+  stroke: #FFFFFF !important;
+}
+
+/* This controls SVG fill colour for selected buttons */
+.selected svg rect,
+.selected svg path[fill] {
+  fill: #FFFFFF !important;
+}
+
+/* This controls SVG stroke colour for unselected verbal/screen buttons */
+#verbalBtn.unselected svg path,
+#screenBtn.unselected svg path {
+  stroke: #E94016 !important;
+}
+
+/* This controls SVG stroke colour for unselected audio buttons */
+#audioYes.unselected svg path,
+#audioNo.unselected svg path {
+  stroke: #0300C4 !important;
+}
+
+/* This controls SVG fill colour for unselected audio buttons */
+#audioYes.unselected svg rect,
+#audioNo.unselected svg rect {
+  fill: #0300C4 !important;
+}
+
+/* This controls removal of fill for the no-audio icon */
+#audioNo.unselected svg path[fill] {
+  fill: none !important;
+}
+
+/* This controls the background + border for selected alertness buttons */
+.alert-btn.selected {
+  background: #007E72 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* This controls the background + border for unselected alertness buttons */
+.alert-btn.unselected {
+  background: #F1F5F9 !important;
+  border: 1px solid #D1D5DB !important;
+  outline: none !important;
+}
+
+/* This controls the number circle background for selected alert buttons */
+.alert-btn.selected > div:first-child {
+  background: #014841 !important;
+}
+
+/* This controls the number circle background for unselected alert buttons */
+.alert-btn.unselected > div:first-child {
+  background: #BADFDB !important;
+}
+
+/* This controls the number text colour for selected alert buttons */
+.alert-btn.selected > div:first-child > div {
+  color: #FFFFFF !important;
+}
+
+/* This controls the number text colour for unselected alert buttons */
+.alert-btn.unselected > div:first-child > div {
+  color: #007E72 !important;
+}
+
+/* This controls the label text colour for selected alert buttons */
+.alert-btn.selected > div:nth-child(2) {
+  color: #FFFFFF !important;
+}
+
+/* This controls the label text colour for unselected alert buttons */
+.alert-btn.unselected > div:nth-child(2) {
+  color: #000000 !important;
+}
+
+/* This controls the default outer ring + glow of the go button */
+#goBtn > div {
+  border: 6px solid rgba(186, 223, 219, 0.5) !important;
+  box-shadow: 0 0 28px rgba(0, 201, 176, 0.30) !important;
+  box-sizing: border-box;
+  transition: transform 0.08s ease, box-shadow 0.12s ease;
+}
+
+/* This controls the pressed state (scale + darker colour + reduced glow) */
+#goBtn:active > div {
+  background: #014841 !important;
+  transform: scale(0.95);
+  box-shadow: 0 0 14px rgba(0, 201, 176, 0.30) !important;
+}
+
+.headerBtnHover:hover {
+  background: #014841 !important;
+}
+
+.primaryBtnHover:hover > div:first-child {
+  background: #014841 !important;
+}
+
+/* Background + border */
+.secondaryBtnHover:hover > div:first-child {
+  background: #E6FFFD !important;
+  border-color: #014841 !important;
+}
+
+/* Text */
+.secondaryBtnHover:hover > div:last-child {
+  color: #014841 !important;
+}
+
+/* SVG stroke */    
+.secondaryBtnHover:hover svg path {
+  stroke: #014841 !important;  
+}

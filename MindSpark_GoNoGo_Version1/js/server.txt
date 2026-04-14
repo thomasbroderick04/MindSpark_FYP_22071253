@@ -1,0 +1,155 @@
+// server.js
+// Arduino Serial -> WebSocket -> Go/No-Go Vocal Integration
+
+const { SerialPort } = require("serialport");
+const { ReadlineParser } = require("@serialport/parser-readline");
+const WebSocket = require("ws");
+
+// ---------- CONFIG ----------
+const SERIAL_PATH = "/dev/cu.usbmodem2101"; // <-- Adjust if needed
+const BAUD_RATE = 9600;
+
+// Only stimulus pages should listen
+const LISTENING_PAGES = new Set(["Page2", "Page4"]);
+
+const NO_INPUT_TIMEOUT_MS = 1000;
+const TIMER_TICK_MS = 100;
+
+// ---------- STATE ----------
+let activePage = null;
+let isListening = false;
+
+let lastRawLine = null;
+let lastGoNumber = null;
+let pageBaselineGoNumber = null;
+
+let lastAcceptedTime = Date.now();
+let lastAcceptedText = "";
+
+// ---------- WEBSOCKET SERVER ----------
+const wss = new WebSocket.Server({ port: 8080 });
+
+function broadcast(obj) {
+  const msg = JSON.stringify(obj);
+  for (const client of wss.clients) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(msg);
+    }
+  }
+}
+
+console.log("WebSocket server running at ws://localhost:8080");
+
+// Handle browser connection
+wss.on("connection", (ws) => {
+  console.log("[WS] Browser connected");
+
+  ws.on("message", (buf) => {
+    let data;
+    try {
+      data = JSON.parse(buf.toString());
+    } catch {
+      return;
+    }
+
+    if (data.type === "page_enter" && typeof data.page === "string") {
+      activePage = data.page;
+      isListening = LISTENING_PAGES.has(activePage);
+
+      // Reset baseline so old serial data doesn't retrigger
+      pageBaselineGoNumber = lastGoNumber;
+      lastAcceptedTime = Date.now();
+
+      console.log(
+        `[WS] Active page: ${activePage}, listening=${isListening}, baselineGo=${pageBaselineGoNumber}`
+      );
+    }
+  });
+
+  ws.on("close", () => {
+    console.log("[WS] Browser disconnected");
+  });
+});
+
+// ---------- SERIAL ----------
+const port = new SerialPort({
+  path: SERIAL_PATH,
+  baudRate: BAUD_RATE
+});
+
+const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
+
+port.on("open", () => {
+  console.log(`[SERIAL] Opened ${SERIAL_PATH} @ ${BAUD_RATE}`);
+});
+
+port.on("error", (err) => {
+  console.error("[SERIAL] Error:", err.message);
+});
+
+function parseGoNumber(line) {
+  const match = line.match(/^Go\s*(\d+)$/i);
+  if (!match) return null;
+  return Number(match[1]);
+}
+
+parser.on("data", (data) => {
+  const line = data.trim(); 
+  if (!line) return;
+
+  // Deduplicate identical consecutive lines
+  if (line === lastRawLine) return;
+  lastRawLine = line;
+
+  console.log("[SERIAL IN]", line);
+
+  const goNum = parseGoNumber(line);
+  if (goNum !== null) {
+    lastGoNumber = goNum;
+  }
+
+  // Only react during listening pages
+  if (!isListening) return;
+
+  // Must be newer than page baseline
+  if (
+    goNum !== null &&
+    pageBaselineGoNumber !== null &&
+    goNum <= pageBaselineGoNumber
+  ) {
+    return;
+  }
+
+  // Accept only new text
+  if (line !== lastAcceptedText) {
+    lastAcceptedText = line;
+    lastAcceptedTime = Date.now();
+
+    console.log("[VOICE TRIGGER]", line);
+
+    broadcast({
+      type: "event",
+      reason: "serial_changed",
+      lastSerial: lastAcceptedText
+    });
+  }
+});
+
+// ---------- TIMEOUT CHECK ----------
+setInterval(() => {
+  if (!isListening) return;
+
+  const now = Date.now();
+
+  if (now - lastAcceptedTime >= NO_INPUT_TIMEOUT_MS) {
+    lastAcceptedTime = now;
+
+    console.log("[TIMEOUT] No new serial input");
+
+    broadcast({
+      type: "event",
+      reason: "timeout",
+      lastSerial: lastAcceptedText || "—"
+    });
+  }
+}, TIMER_TICK_MS);

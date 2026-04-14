@@ -1,0 +1,112 @@
+// The results.js file controls the logic of the Go/No-Go 
+// test results page by retrieving stored test data, calculating
+// performance values, and displaying the user's final results.
+
+(() => {
+  // This function is used to read a value from local storage using the key provided.
+  // Since values in local storage are stored as strings, parseInt is used to convert
+  // the stored value into a number so that it can be used in calculations later.
+  // If the value retrieved is not a valid number, then the function returns 0 by default.
+  function getInt(key) {
+    const v = parseInt(localStorage.getItem(key), 10);
+    return Number.isFinite(v) ? v : 0;
+  }
+
+  // This function is used to locate a specific HTML element on the page using its id
+  // and then update that element's text content with the value provided.
+  // First, a check is performed to ensure that the element exists before
+  // changing any content.
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  // This function is used to calculate the percentage of a number.
+  function percentNumber(part, total) {
+    if (!total) return 0;
+    return Math.round((part / total) * 100);
+  }
+
+  // When the DOM content has fully loaded, the script begins retrieving the relevant
+  // test result values from local storage and displaying them in the correct areas
+  // of the results page.
+  document.addEventListener("DOMContentLoaded", () => {
+    const correct = getInt("gng_correct");
+    const incorrect = getInt("gng_incorrect");
+    const misses = getInt("gng_misses");
+    const bestStreak = getInt("Correct_Sequence_Count");
+
+    // The total number of trials is determined by adding together the number of
+    // correct responses, incorrect responses, and missed responses recorded during the test.
+    const totalTrials = correct + incorrect + misses;
+
+    // The overall accuracy percentage is calculated by comparing the number of correct
+    // responses to the total number of trials completed. 
+    const accuracyPercent = percentNumber(correct, totalTrials);
+
+    // This section updates the main summary section on the results page so that it displays
+    // the user's overall accuracy percentage, total number of correct responses,
+    // total number of errors, and the highest sequence of correct responses.
+    setText("scoreAccuracy", `${accuracyPercent}%`);
+    setText("correctResponses", String(correct));
+    setText("totalErrors", String(incorrect + misses));
+    setText("bestStreak", `${bestStreak} in a row`);
+
+    // This displays the total number of trials completed in the performance breakdown section.
+    setText("totalTrials", String(totalTrials));
+
+    // These values calculate the percentage breakdown for each response type:
+    // correct responses, incorrect responses, and misses. Each percentage is based
+    // on the total number of trials completed. If no trials were recorded, then 
+    // the percentage defaults to 0.
+    const goPercent = totalTrials ? Math.round((correct / totalTrials) * 100) : 0;
+    const nogoPercent = totalTrials ? Math.round((incorrect / totalTrials) * 100) : 0;
+    const missPercent = totalTrials ? Math.round((misses / totalTrials) * 100) : 0;
+
+    // Updates the page with the number and percentage of correct 'Go' responses.
+    setText("breakdownGoCount", String(correct));
+    setText("breakdownGoPercent", `${goPercent}%`);
+
+    // Updates the page with the number and percentage of incorrect 'No-Go' responses.
+    setText("breakdownNoGoErrorCount", String(incorrect));
+    setText("breakdownNoGoErrorPercent", `${nogoPercent}%`);
+
+    // Updates the page with the number and percentage of missed responses.
+    setText("breakdownMissCount", String(misses));
+    setText("breakdownMissPercent", `${missPercent}%`);
+
+    // Updates the page with alertness text that the user previously selected
+    // before beginning the test. If no value has been stored,
+    // "--" is displayed instead.
+    setText("alertnessLabel", localStorage.getItem("alertness_text") || "--");
+    
+
+    // There are three default performance category ranges. These values are then
+    // updated depending on the user's final accuracy percentage. 
+    let label = "Needs Practice";
+    let range = "0–69%";
+
+    if (accuracyPercent >= 90) {
+      label = "Excellent";
+      range = "90–100%";
+    } else if (accuracyPercent >= 70) {
+      label = "Good";
+      range = "70–89%";
+    }
+
+    // This displays the final performance label and its associated percentage range
+    // in the results page performance section.
+    setText("perfLabel", label);
+    setText("perfRange", range);
+
+    // This adjusts the width of the fill bar so that it reflects
+    // the user's final accuracy percentage. The percentage is converted into a pixel width
+    // based on the maximum width of the grey background bar.
+    const fillBar = document.getElementById("percentFill");
+    if (fillBar) {
+      const maxWidth = 327; // Matches the grey bar width
+      const px = Math.round((accuracyPercent / 100) * maxWidth);
+      fillBar.style.width = `${px}px`;
+    }
+  });
+})();

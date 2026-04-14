@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Main container -->
+<div
+  style="
+    width: 375px;
+    height: 812px;
+    background: #EBEBEB;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Phetsarath, sans-serif;
+    overflow: hidden;
+  "
+>
+
+  <!-- Top header bar -->
+  <div
+    style="
+      position: absolute;
+      width: 375px;
+      height: 85px;
+      background: #ABAAA6;
+    "
+  ></div>
+
+  <!-- Page title -->
+  <div
+    style="
+      position: absolute;
+      top: 50px;
+      left: 30px;
+      font-size: 17px;
+      font-weight: 700;
+      color: #333;
+    "
+  >
+    Go/No-Go Test Practice
+  </div>
+
+  <!-- Practice intro section for rules and explanations -->
+  <div
+    style="
+      width: 375px;
+      height: 125px;
+      left: 0px;
+      top: 95px;
+      position: absolute;
+    "
+  >
+    
+    <!-- Background -->
+    <div
+      style="
+        width: 375px;
+        height: 125px;
+        left: 0px;
+        top: 0px;
+        position: absolute;
+        background: #DEDEDE;
+        border: 1px #CCCCCC solid;
+      "
+    ></div>
+
+    <!-- Section heading -->
+    <div
+      style="
+        width: 79px;
+        height: 23px;
+        left: 10px;
+        top: 10px;
+        position: absolute;
+        color: #333333;
+        font-size: 20px;
+        font-weight: 700;
+      "
+    >
+      Practice
+    </div>
+
+    <!-- Description text -->
+    <div
+      style="
+        width: 355px;
+        height: 47px;
+        left: 10px;
+        top: 41px;
+        position: absolute;
+        font-size: 12px;
+        line-height: 15px;
+        color: #333333;
+      "
+    >
+      Try some responses before the official test begins. This is to get used to the symbols and rhythm of the test. Practice results are <strong>not</strong> saved
+    </div>
+
+    <!-- Current rule display -->
+    <div
+      style="
+        width: 329px;
+        height: 20px;
+        left: 23px;
+        top: 98px;
+        position: absolute;
+        font-size: 14px;
+        line-height: 15px;
+        color: #333333;
+      "
+    >
+      <span>Current Rule: </span>
+      <strong>Square = Press, Circle = Do Nothing</strong>
+    </div>
+
+  </div>
+
+  <!-- Outer practice area background -->
+  <div
+    style="
+      position: absolute;
+      top: 233px;
+      left: 0px;
+      width: 375px;
+      height: 417px;
+      background: #DEDEDE;
+      border: 1px solid #CCC;
+    "
+  ></div>
+
+  <!-- Inner practice card -->
+  <div
+    style="
+      position: absolute;
+      top: 246px;
+      left: 10px;
+      width: 355px;
+      height: 394px;
+      background: #EFEFEF;
+      border: 1px solid #CCC;
+      border-radius: 10px;
+    "
+  ></div>
+
+  <!-- Trial progress text -->
+  <div
+    id="trial-text"
+    style="
+      position: absolute;
+      top: 253px;
+      left: 40px;
+      font-size: 12px;
+      color: #333;
+    "
+  >
+
+    <!-- Practice trial counter (practice.js updates span) -->
+    Practice Trial <span id="counter"></span> out of 10
+  </div>
+
+  <!-- Progress bar -->
+  <div
+    style="
+      position: absolute;
+      top: 275px;
+      left: 40px;
+      width: 295px;
+      height: 11px;
+      background: #D9D9D9;
+    "
+  ></div>
+
+  <!-- Progress bar filler (this dynamically updates) -->
+  <div
+    id="progress-bar"
+    style="
+      position: absolute;
+      top: 275px;
+      left: 40px;
+      width: 29.5px;
+      height: 11px;
+      background: #5E5E5E;
+    "
+  ></div>
+
+  <!-- Instruction text for current stimulus -->
+  <div
+    style="
+      position: absolute;
+      top: 301px;
+      width: 375px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
+    "
+  >
+    This is a ‘No-Go’ symbol.
+  </div>
+
+  <!-- Visual stimulus -->
+  <div
+    style="
+      position: absolute;
+      top: 340px;
+      left: 125px;
+      width: 125px;
+      height: 118px;
+      background: #0800FF;
+      border-radius: 9999px;
+    "
+  ></div>
+
+  <!-- Feedback / instruction text -->
+  <div
+    style="
+      position: absolute;
+      top: 466px;
+      left: 57px;
+      width: 261px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 20px;
+      color: #333;
+    "
+  >
+    Pressing 'Go' is the <strong>incorrect</strong> response.<br>
+    Give it a try!
+  </div>
+
+  <!-- Primary action button -->
+  <a href="GoNoGoPractice4Page.html">
+    <div
+      style="
+        position: absolute;
+        top: 511.63px;
+        left: 107px;
+        width: 161px;
+        height: 110px;
+        background: #5E5E5E;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: #FFF;
+      "
+    >
+      Go
+    </div>
+  </a>
+
+  <!-- Secondary action button -->
+  <a href="GoNoGoCountdownPage1.html">
+    <div
+      style="
+        position: absolute;
+        top: 672px;
+        left: 45px;
+        width: 285px;
+        height: 35px;
+        background: #5E5E5E;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        color: #FFF;
+      "
+    >
+      Skip practice and begin test
+    </div>
+  </a>
+
+  <!-- Bottom navigation bar -->
+  <div
+    style="
+      width: 375px;
+      height: 83px;
+      position: absolute;
+      left: 0px;
+      top: 729px;
+      background: #7D7D7D;
+    "
+  >
+
+    <!-- Home tab -->
+    <div
+      style="
+        width: 70px;
+        height: 40px;
+        position: absolute;
+        left: 22px;
+        top: 13.5px;
+        background: #BBBBBB;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        style="
+          color: #333333;
+          font-size: 13px;
+          font-weight: 700;
+        "
+      >
+        Home
+      </div>
+    </div>
+
+    <!-- Tests tab -->
+    <div
+      style="
+        width: 70px;
+        height: 40px;
+        position: absolute;
+        left: 109px;
+        top: 13.5px;
+        background: #BBBBBB;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        style="
+          color: #333333;
+          font-size: 13px;
+          font-weight: 700;
+        "
+      >
+        Tests
+      </div>
+    </div>
+
+    <!-- Progress tab -->
+    <div
+      style="
+        width: 70px;
+        height: 40px;
+        position: absolute;
+        left: 196px;
+        top: 13.5px;
+        background: #BBBBBB;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        style="
+          color: #333333;
+          font-size: 13px;
+          font-weight: 700;
+        "
+      >
+        Progress
+      </div>
+    </div>
+
+    <!-- Settings tab -->
+    <div
+      style="
+        width: 70px;
+        height: 40px;
+        position: absolute;
+        left: 283px;
+        top: 13.5px;
+        background: #BBBBBB;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        style="
+          color: #333333;
+          font-size: 13px;
+          font-weight: 700;
+        "
+      >
+        Settings
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Page script -->
+<script src="../js/practice.js"></script>
+
+</html>

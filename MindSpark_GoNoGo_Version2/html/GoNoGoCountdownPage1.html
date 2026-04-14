@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body style="margin: 0; font-family: Inter, sans-serif; background: #ffffff;">
+
+  <!-- App Container (centered on screen) -->
+  <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+
+    <!-- Phone Frame -->
+    <div style="width: 375px; height: 812px; position: relative; background: #E0ECEC">
+
+      <!-- Main Card -->
+      <div style="width: 335px; height: 662px; left: 20px; top: 130px; position: absolute; background: white; box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.07); border-radius: 16px; border: 1px #D1D5DB solid"></div>
+
+      <!-- Header -->
+      <div style="width: 375px; height: 110px; left: 0px; top: 0px; position: absolute; background: linear-gradient(135deg, #003D38 0%, #005C54 25%, #007E72 50%, #00A99D 75%, #00C9B0 100%); border-bottom-right-radius: 24px; border-bottom-left-radius: 24px">
+
+        <!-- Title -->
+        <div style="left: 20px; top: 60px; position: absolute; color: white; font-size: 22px; font-weight: 800; line-height: 26.4px;">
+          Go/No-Go Test
+        </div>
+
+        <!-- Countdown Label -->
+        <div style="left: 80.5px; top: 187px; position: absolute; text-align: center; display: flex; flex-direction: column; color: black; font-size: 20px; font-weight: 400; letter-spacing: 0.1px;">
+          The test will begin in...
+        </div>
+
+        <div 
+  id="countdownSeconds"
+  style="
+    position: absolute;
+    left: 50%;
+    top: 295px;
+    transform: translateX(-50%);
+    text-align: center;
+    color: black;
+    font-size: 65px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  "
+>
+  10
+</div>
+
+       <!-- Profile button -->
+<div
+style="
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  left: 311px;
+  top: 51.5px;
+  border-radius: 22px;
+  outline: 1px #d1d5db solid;
+  outline-offset: -1px;
+  overflow: hidden;
+  background: #007e72;
+"
+>
+<img
+  src="../images/profilepicture.jpeg"
+  alt="Profile"
+  style="
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  "
+/>
+</div>
+
+        <!-- Notification Button -->
+        <div style="width: 44px; height: 44px; left: 257px; top: 51.5px; position: absolute; background: #007E72; border-radius: 22px; outline: 1px #D1D5DB solid; outline-offset: -1px">
+          <div style="left: 12px; top: 12px; position: absolute">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M15 6.6665C15 5.34042 14.4732 4.06865 13.5355 3.13097C12.5979 2.19329 11.3261 1.6665 10 1.6665C8.67392 1.6665 7.40215 2.19329 6.46447 3.13097C5.52678 4.06865 5 5.34042 5 6.6665C5 12.4998 2.5 14.1665 2.5 14.1665H17.5C17.5 14.1665 15 12.4998 15 6.6665Z" stroke="white" stroke-opacity="0.9" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11.4419 17.5C11.2954 17.7526 11.0851 17.9622 10.8321 18.1079C10.5791 18.2537 10.2922 18.3304 10.0003 18.3304C9.70828 18.3304 9.42142 18.2537 9.1684 18.1079C8.91539 17.9622 8.7051 17.7526 8.55859 17.5" stroke="white" stroke-opacity="0.9" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Seconds Label -->
+      <div style="left: 125.5px; top: 379px; position: absolute; text-align: center; display: flex; flex-direction: column; color: black; font-size: 30px; font-weight: 400;">
+        Seconds
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/app.js"></script>
+
+</body>
+</html>

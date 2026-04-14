@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alertness Questions</title>
+  <link rel="stylesheet" href="css/practice.css">
+</head>
+
+<body style="margin:0; background:#FFFFFF; display:flex; align-items:center; justify-content:center;">
+
+<div
+  style="
+    width:375px;
+    height:1072.5px;
+    background:#EBEBEB;
+    position:relative;
+    font-family:Phetsarath, sans-serif;
+    overflow:hidden;
+  "
+>
+
+  <!-- Header -->
+  <div style="position:absolute;top:0;left:0;width:375px;height:85px;background:#ABAAA6;"></div>
+
+  <div style="position:absolute;top:54px;left:30px;font-size:17px;font-weight:700;color:#333;">
+    Alertness Questions
+  </div>
+
+  <!-- Main Card -->
+  <div style="position:absolute;top:94px;left:20px;width:335px;height:766px;background:#DEDEDE;border:1px solid #CCC;border-radius:10px;"></div>
+
+  <!-- Question -->
+  <div style="position:absolute;top:107px;left:33px;width:324px;font-size:16px;font-weight:700;color:#333;">
+    How alert do you feel right now?
+  </div>
+
+  <!-- Description -->
+  <div style="position:absolute;top:135px;left:33px;width:315px;font-size:10px;line-height:15px;color:#000;">
+    This helps us understand the situation in which the test is completed.
+    It does <strong>not</strong> change the test and is <strong>not</strong> a medical assessment.
+  </div>
+
+  <!-- Inner Card -->
+  <div style="position:absolute;top:174px;left:33px;width:309px;height:673px;background:#EFEFEF;border:1px solid #CCC;border-radius:10px;"></div>
+
+  <!-- OPTIONS -->
+
+  <!-- Option 1 -->
+  <div style="position:absolute;left:182px;top:184px;font-size:12px;font-weight:700;">1.</div>
+  <div
+    class="alert-btn selected"
+    data-level="1"
+    style="position:absolute;left:70px;top:202px;width:235px;height:45px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+  >
+    I am struggling to stay awake
+  </div>
+
+  <!-- Option 2 -->
+  <div style="position:absolute;left:182px;top:257px;font-size:12px;font-weight:700;">2.</div>
+  <div
+    class="alert-btn unselected"
+    data-level="2"
+    style="position:absolute;left:70px;top:275px;width:235px;height:45px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+  >
+    I feel extremely sleepy
+  </div>
+
+  <!-- Option 3 -->
+  <div style="position:absolute;left:182px;top:330px;font-size:12px;font-weight:700;">3.</div>
+  <div
+    class="alert-btn unselected"
+    data-level="3"
+    style="position:absolute;left:70px;top:348px;width:235px;height:45px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+  >
+    I feel very sleepy
+  </div>
+
+  <!-- Option 4 -->
+  <div style="position:absolute;left:182px;top:403px;font-size:12px;font-weight:700;">4.</div>
+  <div
+    class="alert-btn unselected"
+    data-level="4"
+    style="position:absolute;left:70px;top:421px;width:235px;height:45px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+  >
+    I feel sleepy
+  </div>
+
+  <!-- Option 5 -->
+  <div style="position:absolute;left:182px;top:476px;font-size:12px;font-weight:700;">5.</div>
+  <div
+    class="alert-btn unselected"
+    data-level="5"
+    style="position:absolute;left:70px;top:494px;width:235px;height:45px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+  >
+    I feel slightly sleepy
+  </div>
+
+  <!-- Option 6 -->
+  <div style="position:absolute;left:182px;top:549px;font-size:12px;font-weight:700;">6.</div>
+  <div
+    class="alert-btn unselected"
+    data-level="6"
+    style="position:absolute;left:70px;top:567px;width:235px;height:45px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+  >
+    I feel neither alert nor sleepy
+  </div>
+
+  <!-- Option 7 -->
+  <div style="position:absolute;left:182px;top:622px;font-size:12px;font-weight:700;">7.</div>
+  <div
+    class="alert-btn unselected"
+    data-level="7"
+    style="position:absolute;left:70px;top:640px;width:235px;height:45px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+  >
+    I feel mostly alert
+  </div>
+
+  <!-- Option 8 -->
+  <div style="position:absolute;left:182px;top:695px;font-size:12px;font-weight:700;">8.</div>
+  <div
+    class="alert-btn unselected"
+    data-level="8"
+    style="position:absolute;left:70px;top:713px;width:235px;height:45px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+  >
+    I feel alert
+  </div>
+
+  <!-- Option 9 -->
+  <div style="position:absolute;left:182px;top:768px;font-size:12px;font-weight:700;">9.</div>
+  <div
+    class="alert-btn unselected"
+    data-level="9"
+    style="position:absolute;left:70px;top:786px;width:235px;height:45px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+  >
+    I feel very alert
+  </div>
+
+  <!-- Buttons -->
+  <a href="GoNoGoPractice1Page.html">
+    <div style="position:absolute;top:879px;left:45px;width:285px;height:35px;background:#5E5E5E;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFF;">
+      Save your answer and start practice
+    </div>
+  </a>  
+
+  <a href="GoNoGoTestOptionsPage.html">
+    <div style="position:absolute;top:922px;left:45px;width:285px;height:35px;background:#BBB;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#000;">
+      Return to the test options
+    </div>
+  </a>
+
+ <!-- Bottom Navigation -->
+ <div style="width:375px; height:83px; position:absolute; left:0px; top:997px; background:#7D7D7D;">
+
+  <!-- Home -->
+  <div style="width:70px; height:40px; position:absolute; left:22px; top:13.5px; background:#BBBBBB; border-radius:12px; display:flex; align-items:center; justify-content:center;">
+    <div style="color:#333333; font-size:13px; font-weight:700;">
+      Home
+    </div>
+  </div>
+
+  <!-- Tests -->
+  <div style="width:70px; height:40px; position:absolute; left:109px; top:13.5px; background:#BBBBBB; border-radius:12px; display:flex; align-items:center; justify-content:center;">
+    <div style="color:#333333; font-size:13px; font-weight:700;">
+      Tests
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div style="width:70px; height:40px; position:absolute; left:196px; top:13.5px; background:#BBBBBB; border-radius:12px; display:flex; align-items:center; justify-content:center;">
+    <div style="color:#333333; font-size:13px; font-weight:700;">
+      Progress
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div style="width:70px; height:40px; position:absolute; left:283px; top:13.5px; background:#BBBBBB; border-radius:12px; display:flex; align-items:center; justify-content:center;">
+    <div style="color:#333333; font-size:13px; font-weight:700;">
+      Settings
+    </div>
+  </div>
+
+</div>
+
+<script src="js/practice.js"></script>
+</body>
+</html>

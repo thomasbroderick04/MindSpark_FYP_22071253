@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Go/No-Go Test</title>
+</head>
+
+<body style="margin:0; background:#FFFFFF; display:flex; align-items:center; justify-content:center;">
+
+<div
+  style="
+    width: 375px;
+    height: 812px;
+    background: #EBEBEB;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Phetsarath, sans-serif;
+    overflow: hidden;
+  "
+>
+
+  <!-- Header -->
+  <div
+    style="
+      width: 375px;
+      height: 85px;
+      position: absolute;
+      background: #ABAAA6;
+    "
+  ></div>
+
+  <div
+    style="
+      left: 30px;
+      top: 50px;
+      width: 120px;
+      position: absolute;
+      color: #333333;
+      font-size: 17px;
+      font-weight: 700;
+      font-family: Phetsarath, sans-serif;
+    "
+  >
+    Go/No-Go Test
+  </div>
+
+<!-- Main Card -->
+<div
+style="
+  width: 375px;
+  height: 665px;
+  left: 0px;
+  top: 94px;
+  position: absolute;
+  background: #DEDEDE;
+  border: 1px solid #CCCCCC;
+"
+></div>
+
+<div
+style="
+  width: 355px;
+  height: 642px;
+  left: 10px;
+  top: 107px;
+  position: absolute;
+  background: #EFEFEF;
+  border-radius: 10px;
+  border: 1px solid #CCCCCC;
+"
+></div>
+
+  <!-- Trial Info -->
+  <div
+    style="
+      left: 40px;
+      top: 120px;
+      position: absolute;
+      color: #333333;
+      font-size: 12px;
+      font-family: Phetsarath, sans-serif;
+    "
+  >
+    Trial Number <span id="trialNumber">2</span> out of 100
+  </div>
+
+  <!-- Progress Bar -->
+  <div
+    style="
+      width: 295px;
+      height: 11px;
+      left: 40px;
+      top: 142px;
+      position: absolute;
+      background: #D9D9D9;
+    "
+  ></div>
+
+  <div
+    id="progress-bar"
+    style="
+      width: 5.9px;
+      height: 11px;
+      left: 40px;
+      top: 142px;
+      position: absolute;
+      background: #5E5E5E;
+    "
+  ></div>
+
+  <!-- Yellow Square -->
+  <div
+    id="stimulus"
+    style="
+      width: 189px;
+      height: 186px;
+      left: 93px;
+      top: 253px;
+      position: absolute;
+      background: #FFBF00;
+    "
+  ></div>
+
+  <!-- Go Button (CLICKABLE, VISUALLY IDENTICAL) -->
+  <button
+    id="goBtn"
+    type="button"
+    style="
+      width: 161px;
+      height: 110px;
+      left: 107px;
+      top: 512px;
+      position: absolute;
+      background: #5E5E5E;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: #FFFFFF;
+      font-family: Phetsarath, sans-serif;
+      border: none;
+      cursor: pointer;
+    "
+  >
+    Go
+  </button>
+
+  <!-- Stop the Test Button -->
+  <button
+   id="stopTest"
+   type="button"
+    style="
+      width: 161px;
+      height: 45px;
+      left: 107px;
+      top: 647px;
+      position: absolute;
+      background: #E8B6B6;
+      border-radius: 10px;
+      border: 1px solid #FF0C0C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #FF383C;
+      font-family: Phetsarath, sans-serif;
+    "
+  >
+    Stop the test
+</button>
+
+</div>
+
+<script src="../js/app.js"></script>
+
+</body>
+</html>
