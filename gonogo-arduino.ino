@@ -53,7 +53,7 @@ void setup() {
   // This starts serial communication so the system can see the output.
   Serial.begin(115200);
 
-  // This adds a small delay simply to allow everything to stabilise.
+  // This adds a small delay to simply allow the system to stabilise.
   delay(300);
 }
 
