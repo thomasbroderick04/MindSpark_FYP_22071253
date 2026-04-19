@@ -1,3 +1,9 @@
+// This code uses a microphone that is connected to an Arduino UNO Mini to detect when a sound from that microphone occurs (e.g., someone speaking "Go").
+// It does this by quickly reading the microphone signal over a short period of time and finding the difference between the highest, and the lowest readings
+// in order to estimate how strong the sound is. If this measured sound level goes above a certain threshold, it is treated as the start of a sound.
+// This code then counts it and sends the current count to the serial monitor. It keeps track of whether it is currently INSIDE of a sound, and waits until the signal drops
+// below a lower threshold before allowing another sound to be detected. Finally, a short wait time is also used to prevent the same sound from being counted multiple times.
+
 // This is the analog pin on the Arduino UNO Mini that the microphone is connected to.
 const int soundPin = A0;
 
