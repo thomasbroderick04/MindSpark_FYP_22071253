@@ -2,6 +2,7 @@ This repository contains the fully functional Go/No-Go cognitive testing sequenc
 a Node.js server, and an Arduino-based sound input device.
 
 The following link will allow for complete access to three iterations of this testing sequence with full backend functionality implemented.
+
 NOTE: This link should be opened on a Google Chrome browser:
 
 https://thomasbroderick04.github.io/22071253_MindSpark_FYP/
