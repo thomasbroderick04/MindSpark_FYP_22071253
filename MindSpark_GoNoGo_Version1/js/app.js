@@ -3,7 +3,7 @@
 // audio playback, and movement between the different test pages.
 
 (() => {
-  const Total_Trials = 4;
+  const Total_Trials = 30;
   let Audio_Option = localStorage.getItem("audio_option") || 'Y'; // Retrieves the user's selected audio setting from local storage. It defaults to 'Y' if no value has been stored.
   const Stimulus_MS = 800; // Defines how long the stimulus page stays visible before automatically moving on (if the user does nothing).
   const Stimulus_Half_MS = 600; // Defines when the stimulus visually changes (fades to the background color). Helps with the transition when the same shape is displayed in succession.
