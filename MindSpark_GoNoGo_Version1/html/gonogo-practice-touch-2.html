@@ -1,146 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <style>
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        background: #FFFFFF;
-      }
+  <!-- Main Container -->
+  <div
+    style="
+      width: 375px;
+      height: 812px;
+      background: #EBEBEB;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: Phetsarath, sans-serif;
+      overflow: hidden;
+    "
+  >
 
-      * {
-        box-sizing: border-box;
-      }
-    </style>
-  </head>
+    <!-- Header Section -->
+    <div
+      style="
+        position: absolute;
+        width: 375px;
+        height: 85px;
+        background: #ABAAA6;
+      "
+    ></div>
 
-  <body>
-    <!-- Main Container -->
+    <!-- Page Title -->
+    <div
+      style="
+        position: absolute;
+        top: 50px;
+        left: 30px;
+        font-size: 17px;
+        font-weight: 700;
+        color: #333;
+      "
+    >
+      Go/No-Go Test Practice
+    </div>
+
+    <!-- Practice Intro Section -->
     <div
       style="
         width: 375px;
-        height: 812px;
-        background: #EBEBEB;
+        height: 125px;
+        left: 0px;
+        top: 95px;
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-family: Phetsarath, sans-serif;
-        overflow: hidden;
       "
     >
-      <!-- Header Section -->
-      <div
-        style="
-          position: absolute;
-          width: 375px;
-          height: 85px;
-          background: #ABAAA6;
-        "
-      ></div>
 
-      <!-- Page Title -->
-      <div
-        style="
-          position: absolute;
-          top: 50px;
-          left: 30px;
-          font-size: 17px;
-          font-weight: 700;
-          color: #333;
-        "
-      >
-        Go/No-Go Test Practice
-      </div>
-
-      <!-- Practice Intro Section -->
       <div
         style="
           width: 375px;
           height: 125px;
           left: 0px;
-          top: 95px;
+          top: 0px;
           position: absolute;
-        "
-      >
-        <div
-          style="
-            width: 375px;
-            height: 125px;
-            left: 0px;
-            top: 0px;
-            position: absolute;
-            background: #DEDEDE;
-            border: 1px #CCCCCC solid;
-          "
-        ></div>
-
-        <div
-          style="
-            width: 79px;
-            height: 23px;
-            left: 10px;
-            top: 10px;
-            position: absolute;
-            color: #333333;
-            font-size: 20px;
-            font-weight: 700;
-          "
-        >
-          Practice
-        </div>
-
-        <div
-          style="
-            width: 355px;
-            height: 47px;
-            left: 10px;
-            top: 41px;
-            position: absolute;
-            font-size: 12px;
-            line-height: 15px;
-            color: #333333;
-          "
-        >
-          Try some responses before the official test begins. This is to get used to
-          the symbols and rhythm of the test. Practice results are
-          <strong>not</strong> saved
-        </div>
-
-        <div
-          style="
-            width: 329px;
-            height: 20px;
-            left: 23px;
-            top: 98px;
-            position: absolute;
-            font-size: 14px;
-            line-height: 15px;
-            color: #333333;
-          "
-        >
-          <span>Current Rule: </span>
-          <strong>Square = Press, Circle = Do Nothing</strong>
-        </div>
-      </div>
-
-      <!-- Practice Area -->
-      <div
-        style="
-          position: absolute;
-          top: 233px;
-          left: 0px;
-          width: 375px;
-          height: 417px;
           background: #DEDEDE;
-          border: 1px solid #CCC;
+          border: 1px #CCCCCC solid;
         "
       ></div>
 
-      <!-- Feedback Section -->
+      <div
+        style="
+          width: 79px;
+          height: 23px;
+          left: 10px;
+          top: 10px;
+          position: absolute;
+          color: #333333;
+          font-size: 20px;
+          font-weight: 700;
+        "
+      >
+        Practice
+      </div>
+
+      <div
+        style="
+          width: 355px;
+          height: 47px;
+          left: 10px;
+          top: 41px;
+          position: absolute;
+          font-size: 12px;
+          line-height: 15px;
+          color: #333333;
+        "
+      >
+        Try some responses before the official test begins. This is to get used to the symbols and rhythm of the test. Practice results are <strong>not</strong> saved
+      </div>
+
+      <div
+        style="
+          width: 329px;
+          height: 20px;
+          left: 23px;
+          top: 98px;
+          position: absolute;
+          font-size: 14px;
+          line-height: 15px;
+          color: #333333;
+        "
+      >
+        <span>Current Rule: </span>
+        <strong>Square = Press, Circle = Do Nothing</strong>
+      </div>
+
+    </div>
+
+    <!-- Practice Area  -->
+    <div
+      style="
+        position: absolute;
+        top: 233px;
+        left: 0px;
+        width: 375px;
+        height: 417px;
+        background: #DEDEDE;
+        border: 1px solid #CCC;
+      "
+    ></div>
+
+     <!-- Feedback Section -->
       <div
         style="
           position: absolute;
@@ -196,146 +179,148 @@
         </div>
       </div>
 
-      <!-- Primary Button -->
-      <a href="gonogo-countdown.html">
-        <div
-          style="
-            position: absolute;
-            top: 672px;
-            left: 45px;
-            width: 285px;
-            height: 35px;
-            background: #5E5E5E;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-            color: #FFF;
-          "
-        >
-          Skip practice and begin test
-        </div>
-      </a>
-
-      <!-- Footer Navigation Section -->
+    <!-- Primary Button -->
+    <a href="gonogo-countdown.html">
       <div
         style="
-          width: 375px;
-          height: 83px;
           position: absolute;
-          left: 0px;
-          top: 729px;
-          background: #7D7D7D;
+          top: 672px;
+          left: 45px;
+          width: 285px;
+          height: 35px;
+          background: #5E5E5E;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: 700;
+          color: #FFF;
         "
       >
-        <!-- Home Button -->
-        <div
-          style="
-            width: 70px;
-            height: 40px;
-            position: absolute;
-            left: 22px;
-            top: 13.5px;
-            background: #BBBBBB;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          "
-        >
-          <div
-            style="
-              color: #333333;
-              font-size: 13px;
-              font-weight: 700;
-            "
-          >
-            Home
-          </div>
-        </div>
+        Skip practice and begin test
+      </div>
+    </a>
 
-        <!-- Tests Button -->
-        <div
-          style="
-            width: 70px;
-            height: 40px;
-            position: absolute;
-            left: 109px;
-            top: 13.5px;
-            background: #BBBBBB;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          "
-        >
-          <div
-            style="
-              color: #333333;
-              font-size: 13px;
-              font-weight: 700;
-            "
-          >
-            Tests
-          </div>
-        </div>
+    <!-- Footer Navigation Section -->
+    <div
+      style="
+        width: 375px;
+        height: 83px;
+        position: absolute;
+        left: 0px;
+        top: 729px;
+        background: #7D7D7D;
+      "
+    >
 
-        <!-- Progress Button -->
+      <!-- Home Button -->
+      <div
+        style="
+          width: 70px;
+          height: 40px;
+          position: absolute;
+          left: 22px;
+          top: 13.5px;
+          background: #BBBBBB;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
         <div
           style="
-            width: 70px;
-            height: 40px;
-            position: absolute;
-            left: 196px;
-            top: 13.5px;
-            background: #BBBBBB;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: #333333;
+            font-size: 13px;
+            font-weight: 700;
           "
         >
-          <div
-            style="
-              color: #333333;
-              font-size: 13px;
-              font-weight: 700;
-            "
-          >
-            Progress
-          </div>
-        </div>
-
-        <!-- Settings Button -->
-        <div
-          style="
-            width: 70px;
-            height: 40px;
-            position: absolute;
-            left: 283px;
-            top: 13.5px;
-            background: #BBBBBB;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          "
-        >
-          <div
-            style="
-              color: #333333;
-              font-size: 13px;
-              font-weight: 700;
-            "
-          >
-            Settings
-          </div>
+          Home
         </div>
       </div>
+
+      <!-- Tests Button -->
+      <div
+        style="
+          width: 70px;
+          height: 40px;
+          position: absolute;
+          left: 109px;
+          top: 13.5px;
+          background: #BBBBBB;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <div
+          style="
+            color: #333333;
+            font-size: 13px;
+            font-weight: 700;
+          "
+        >
+          Tests
+        </div>
+      </div>
+
+      <!-- Progress Button -->
+      <div
+        style="
+          width: 70px;
+          height: 40px;
+          position: absolute;
+          left: 196px;
+          top: 13.5px;
+          background: #BBBBBB;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <div
+          style="
+            color: #333333;
+            font-size: 13px;
+            font-weight: 700;
+          "
+        >
+          Progress
+        </div>
+      </div>
+
+      <!-- Settings Button -->
+      <div
+        style="
+          width: 70px;
+          height: 40px;
+          position: absolute;
+          left: 283px;
+          top: 13.5px;
+          background: #BBBBBB;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <div
+          style="
+            color: #333333;
+            font-size: 13px;
+            font-weight: 700;
+          "
+        >
+          Settings
+        </div>
+      </div>
+
     </div>
 
-    <script src="../js/practice.js"></script>
-  </body>
+  </div>
+
+  <script src="../js/practice.js"></script>
 </html>
