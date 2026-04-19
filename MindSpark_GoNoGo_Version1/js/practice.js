@@ -9,14 +9,14 @@ let currentTrial = 1; // Stores the current practice trial number being displaye
 let ratio = .5; // Defines the ratio used to randomly determine whether a 'Go' or a 'No-Go' practice page is displayed.
 let feedbackDelay = 1500; // Defines how long a feedback page remains visible before automatically moving to the next practice trial.
 const totalTrials = 10; // Defines the total number of practice trials.
-let counterEl; // Stores a reference to the HTML element used to display the current practice trial number.
+let trialCounterEl; // Stores a reference to the HTML element used to display the current practice trial number.
 let page; // Stores the path of the CURRENT page, so the appropriate page logic can then be applied.
 
 document.addEventListener("DOMContentLoaded", () => {
   // When the page has fully loaded, store the path of the current page and
   // retrieve the HTML element used to display the current practice trial number.
   page = window.location.pathname;
-  counterEl = document.getElementById("counter");
+  trialCounterEl = document.getElementById("counter");
 
   // If the user has entered the introduction page, then reset the
   // their alertness selection in local storage so that each new practice session
@@ -38,10 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // from local storage, display it on the screen, and then update the stored value
   // so that the next trial number is ready for the following page.
   if (
-    page.includes("GoNoGoPractice1Page.html") ||
-    page.includes("GoNoGoPractice3Page.html")
+    page.includes("gonogo-practice-touch-1.html") ||
+    page.includes("gonogo-practice-touch-3.html")
   ) {
-    counterEl.textContent = localStorage.getItem("count") || 1;
+    trialCounterEl.textContent = localStorage.getItem("count") || 1;
 
     let count = Number(localStorage.getItem("count") || 1);
     currentTrial = count;
@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // Two different audio sounds are used during the practice trials.
 // One sound is associated with the circle stimulus type, and the other sound
 // is associated with the square stimulus type.
-const highBeep = new Audio('audio/GoNoGoCircleAudio.mp3');
-const lowBeep  = new Audio('audio/GoNoGoSquareAudio.mp3');
+const highBeep = new Audio('../audio/gonogo-circle-audio.mp3');
+const lowBeep  = new Audio('../audio/gonogo-square-audio.mp3');
 
 // This function updates the progress bar based on the current practice trial number.
 // The width is calculated as a proportion of the total number of practice trials.
@@ -81,7 +81,7 @@ function nextTrial() {
 
   // If count wrapped back to 1, the last practice trial has just completed.
   if (nextCount === 1) {
-    window.location.href = "GoNoGoCountdownPage1.html";
+    window.location.href = "gonogo-countdown.html";
     return;
   }
 
@@ -89,8 +89,8 @@ function nextTrial() {
 // and then direct the user to the corresponding practice stimulus page.
   const isGoTrial = Math.random() < ratio;
   window.location.href = isGoTrial
-    ? 'GoNoGoPractice1Page.html'
-    : 'GoNoGoPractice3Page.html';
+    ? 'gonogo-practice-touch-1.html'
+    : 'gonogo-practice-touch-3.html';
 }
 
 
@@ -189,10 +189,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // On the practice trial and feedback pages, update the progress bar so that
   // the user can visually see how far through the practice session they are.
   if (
-    path.includes('GoNoGoPractice1Page.html') ||
-    path.includes('GoNoGoPractice2Page.html') ||
-    path.includes('GoNoGoPractice3Page.html') ||
-    path.includes('GoNoGoPractice4Page.html')
+    path.includes('gonogo-practice-touch-1.html') ||
+    path.includes('gonogo-practice-touch-2.html') ||
+    path.includes('gonogo-practice-touch-3.html') ||
+    path.includes('gonogo-practice-touch-4.html')
   ) {
     updateProgressBar();
   }
@@ -201,11 +201,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // then the appropriate sound is played when
   // a stimulus practice page is displayed.
   if (Audio_Option === 'Y') {
-    if (path.includes('GoNoGoPractice1Page.html')) {
+    if (path.includes('gonogo-practice-touch-1.html')) {
       highBeep.play();
     }
 
-    if (path.includes('GoNoGoPractice3Page.html')) {
+    if (path.includes('gonogo-practice-touch-3.html')) {
       lowBeep.play();
     }
   }
@@ -213,8 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // On the feedback pages, wait for the defined delay period and then
   // automatically move on to the next practice trial.
   if (
-    path.includes('GoNoGoPractice2Page.html') ||
-    path.includes('GoNoGoPractice4Page.html')
+    path.includes('gonogo-practice-touch-2.html') ||
+    path.includes('gonogo-practice-touch-4.html')
   ) {
     setTimeout(() => {
       nextTrial();

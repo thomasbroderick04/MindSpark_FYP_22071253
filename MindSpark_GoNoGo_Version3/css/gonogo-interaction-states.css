@@ -1,0 +1,220 @@
+/* This file controls the interactive button/card states across the various screens, 
+including behaviour when buttons are clicked, selected vs unselected styling, 
+icon and text colour changes, and the behaviour of buttons when they are hovered over. */
+
+/* This makes the main cards/buttons feel clickable when they are hovered over, and makes sure they can actually be clicked */
+#verbalBtn,
+#screenBtn,
+#audioYes,
+#audioNo,
+.alert-btn,
+a > div {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* This makes the inner layers ignore clicks so they do not get in the way of clicking the main parent card/button */
+#verbalBtn > div,
+#screenBtn > div,
+#audioYes > div,
+#audioNo > div,
+.alert-btn > div,
+a > div > div {
+  pointer-events: none;
+}
+
+
+/* This keeps the card corners rounded properly and stops anything inside from spilling outside the shape */
+.selected,
+.unselected {
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+
+/* This removes the border from a card once it is selected */
+.selected {
+  border: none !important;
+}
+
+/* This clears out the inner background/border/shadow layer so there are no square edges showing through */
+.selected > div:first-child,
+.unselected > div:first-child {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+/* This controls the background colour of selected response/audio buttons */
+#verbalBtn.selected,
+#screenBtn.selected,
+#audioYes.selected,
+#audioNo.selected {
+  background: #007E72 !important;
+}
+
+/* This sets the main background and border for the unselected response/audio buttons */
+#verbalBtn.unselected,
+#screenBtn.unselected,
+#audioYes.unselected,
+#audioNo.unselected {
+  background: #F1F5F9 !important;
+  border: 1px solid #D1D5DB !important;
+}
+
+/* This changes the icon square colour to a dark green version when a button is selected */
+#verbalBtn.selected > div:nth-child(2),
+#screenBtn.selected > div:nth-child(2),
+#audioYes.selected > div:nth-child(2),
+#audioNo.selected > div:nth-child(2) {
+  background: #014841 !important;
+}
+
+/* This sets the icon square colour for unselected verbal/screen response buttons */
+#verbalBtn.unselected > div:nth-child(2),
+#screenBtn.unselected > div:nth-child(2) {
+  background: #F8D8C3 !important;
+}
+
+/* This controls the icon square colour for unselected audio buttons */
+#audioYes.unselected > div:nth-child(2),
+#audioNo.unselected > div:nth-child(2) {
+  background: #C2D2F9 !important;
+}
+
+/* This controls the text colour for selected buttons by changing them to white */
+.selected > div:nth-child(3),
+.selected > div:nth-child(4) {
+  color: #FFFFFF !important;
+}
+
+/* This controls the text colour for unselected buttons by changing them to black */
+.unselected > div:nth-child(3),
+.unselected > div:nth-child(4) {
+  color: #000000 !important;
+}
+
+/* This controls SVG stroke colour for selected buttons */
+.selected svg path {
+  stroke: #FFFFFF !important;
+}
+
+/* This controls SVG fill colour for selected buttons */
+.selected svg rect,
+.selected svg path[fill] {
+  fill: #FFFFFF !important;
+}
+
+/* This controls SVG stroke colour for unselected verbal/screen buttons */
+#verbalBtn.unselected svg path,
+#screenBtn.unselected svg path {
+  stroke: #E94016 !important;
+}
+
+/* This controls SVG stroke colour for unselected audio buttons */
+#audioYes.unselected svg path,
+#audioNo.unselected svg path {
+  stroke: #0300C4 !important;
+}
+
+/* This controls SVG fill colour for unselected audio buttons */
+#audioYes.unselected svg rect,
+#audioNo.unselected svg rect {
+  fill: #0300C4 !important;
+}
+
+/* This removes the fill from the no audio button icon so it keeps the correct outlined appearance */
+#audioNo.unselected svg path[fill] {
+  fill: none !important;
+}
+
+/* This sets the selected alertness button to the green selected style and removes its border */
+.alert-btn.selected {
+  background: #007E72 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* This sets the unselected alertness button to the light background style with a border */
+.alert-btn.unselected {
+  background: #F1F5F9 !important;
+  border: 1px solid #D1D5DB !important;
+  outline: none !important;
+}
+
+/* This changes the number circle to dark green when an alertness button is selected */
+.alert-btn.selected > div:first-child {
+  background: #014841 !important;
+}
+
+/* This keeps the number circle a light colour when an alertness button is unselected */
+.alert-btn.unselected > div:first-child {
+  background: #BADFDB !important;
+}
+
+/* This controls the number text colour for selected alert buttons */
+.alert-btn.selected > div:first-child > div {
+  color: #FFFFFF !important;
+}
+
+/* This makes the number inside the circle green when unselected */
+.alert-btn.unselected > div:first-child > div {
+  color: #007E72 !important;
+}
+
+/* This makes the alertness label text white when selected */
+.alert-btn.selected > div:nth-child(2) {
+  color: #FFFFFF !important;
+}
+
+/* This makes the alertness label text black when unselected */
+.alert-btn.unselected > div:nth-child(2) {
+  color: #000000 !important;
+}
+
+/* This gives the go button its default outer ring and glow */
+#goBtn > div {
+  border: 6px solid rgba(186, 223, 219, 0.5) !important;
+  box-shadow: 0 0 28px rgba(0, 201, 176, 0.30) !important;
+  box-sizing: border-box;
+  transition: transform 0.08s ease, box-shadow 0.12s ease;
+}
+
+/* This controls how the go button appears when it is pressed (theoretically touched) down */
+#goBtn:active > div {
+  background: #014841 !important;
+  transform: scale(0.95);
+  box-shadow: 0 0 14px rgba(0, 201, 176, 0.30) !important;
+}
+
+/* This darkens header-style buttons on hover. Hover is included within this code in order to help demonstrate buttons are clickable. */
+.headerBtnHover:hover {
+  background: #014841 !important;
+}
+
+/* This darkens the main inner layer of primary buttons when hovered */
+.primaryBtnHover:hover > div:first-child {
+  background: #014841 !important;
+}
+
+/* This changes the background and border of secondary buttons when they are hovered over  */
+.secondaryBtnHover:hover > div:first-child {
+  background: #E6FFFD !important;
+  border-color: #014841 !important;
+}
+
+/* This changes the text colour of secondary buttons when hovered over */
+.secondaryBtnHover:hover > div:last-child {
+  color: #014841 !important;
+}
+
+/* This changes the SVG icon's stroke colour for buttons classified assecondary buttons when hovered */    
+.secondaryBtnHover:hover svg path {
+  stroke: #014841 !important;  
+}
+
+/* This gives stop buttons a light background when hovered over */
+.stopBtnHover:hover > div:first-child {
+  background: #FEEAEA !important;
+}

@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/gonogo-interaction-states.css" />
+  </head>
+
+  <script>
+    // Wait until the DOM is fully loaded before any JS starts to run.
+    document.addEventListener("DOMContentLoaded", () => {
+      // Get all interactive buttons from the DOM
+      const verbalBtn = document.getElementById("verbalBtn");
+      const screenBtn = document.getElementById("screenBtn");
+      const audioOnBtn = document.getElementById("audioYes");
+      const audioOffBtn = document.getElementById("audioNo");
+
+      // Default selections. If no response method is stored,
+      // default to the screen response selection, which is reprsented by "S".
+      if (!localStorage.getItem("Response_Method")) {
+        localStorage.setItem("Response_Method", "S");
+      }
+      // Default selections. If no audio feedback is stored,
+      // default to the no audio feedback selection, which is reprsented by "N".
+      if (!localStorage.getItem("Audio_Feedback")) {
+        localStorage.setItem("Audio_Feedback", "N");
+      }
+
+      // Updates button styles based on selected response method.
+      function updateVisualSelection(method) {
+        if (method === "V") {
+          // Active state for when the verbal response button is selected.
+          verbalBtn.style.background = "#5E5E5E";
+          verbalBtn.style.color = "#FFFFFF";
+          // Non-active state for when the screen response button is not selected.
+          screenBtn.style.background = "#BBBBBB";
+          screenBtn.style.color = "#333333";
+        } else {
+          // Screen button selected active state,
+          screenBtn.style.background = "#5E5E5E";
+          screenBtn.style.color = "#FFFFFF";
+          // Verbal button deselected non-active state.
+          verbalBtn.style.background = "#BBBBBB";
+          verbalBtn.style.color = "#333333";
+        }
+      }
+
+      // Apply the correct visual state based on the selected response method
+      const currentMethod = localStorage.getItem("Response_Method");
+      updateVisualSelection(currentMethod);
+
+      // When verbal is selected.
+      verbalBtn.addEventListener("click", () => {
+        localStorage.setItem("Response_Method", "V");
+        updateVisualSelection("V");
+      });
+      // When screen is selected.
+      screenBtn.addEventListener("click", () => {
+        localStorage.setItem("Response_Method", "S");
+        updateVisualSelection("S");
+      });
+
+      // Turn audio feedback on.
+      audioOnBtn.addEventListener("click", () => {
+        localStorage.setItem("Audio_Feedback", "Y");
+      });
+      // Turn audio feedback off.
+      audioOffBtn.addEventListener("click", () => {
+        localStorage.setItem("Audio_Feedback", "N");
+      });
+    });
+  </script>
+
+  <body
+    style="
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-items: flex-start;
+      background: #fff;
+      font-family: Inter, sans-serif;
+    "
+  >
+    <div
+      style="
+        width: 375px;
+        height: 1822px;
+        position: relative;
+        background: #E0ECEC;
+        overflow: hidden;
+        font-family: Inter, sans-serif;
+      "
+    >
+      <!-- Header -->
+      <div
+        style="
+          width: 375px;
+          height: 110px;
+          position: fixed;
+          left: 50%;
+          transform: translateX(-50%);
+          background: linear-gradient(
+            135deg,
+            #003d38 0%,
+            #005c54 25%,
+            #007e72 50%,
+            #00a99d 75%,
+            #00c9b0 100%
+          );
+          border-bottom-left-radius: 24px;
+          border-bottom-right-radius: 24px;
+          z-index: 999;
+        "
+      >
+        <a href="index.html">
+          <div
+            class="headerBtnHover"
+            style="
+              width: 44px;
+              height: 44px;
+              left: 20px;
+              top: 51.5px;
+              position: absolute;
+              background: #007e72;
+              border-radius: 22px;
+              outline: 1px #d1d5db solid;
+              outline-offset: -1px;
+            "
+          >
+            <div style="left: 12px; top: 12px; position: absolute">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.5 15L7.5 10L12.5 5"
+                  stroke="white"
+                  stroke-width="2.08333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <div
+          style="
+            left: 77px;
+            top: 60px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 26.4px;
+            word-wrap: break-word;
+          "
+        >
+          Go/No-Go Test
+        </div>
+
+        <div
+          style="
+            width: 44px;
+            height: 44px;
+            left: 257px;
+            top: 51.5px;
+            position: absolute;
+            background: #007e72;
+            border-radius: 22px;
+            outline: 1px #d1d5db solid;
+            outline-offset: -1px;
+          "
+        >
+          <div style="left: 12px; top: 12px; position: absolute">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 6.66675C15 5.34067 14.4732 4.0689 13.5355 3.13121C12.5979 2.19353 11.3261 1.66675 10 1.66675C8.67392 1.66675 7.40215 2.19353 6.46447 3.13121C5.52678 4.0689 5 5.34067 5 6.66675C5 12.5001 2.5 14.1667 2.5 14.1667H17.5C17.5 14.1667 15 12.5001 15 6.66675Z"
+                stroke="white"
+                stroke-opacity="0.9"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11.4419 17.5C11.2954 17.7526 11.0851 17.9622 10.8321 18.1079C10.5791 18.2537 10.2922 18.3304 10.0003 18.3304C9.70828 18.3304 9.42142 18.2537 9.1684 18.1079C8.91539 17.9622 8.7051 17.7526 8.55859 17.5"
+                stroke="white"
+                stroke-opacity="0.9"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Profile Button -->
+        <div
+          style="
+            width: 44px;
+            height: 44px;
+            position: absolute;
+            left: 311px;
+            top: 51.5px;
+            border-radius: 22px;
+            outline: 1px #d1d5db solid;
+            outline-offset: -1px;
+            overflow: hidden;
+            background: #007e72;
+          "
+        >
+          <img
+            src="../images/profile-picture.jpeg"
+            alt="Profile"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            "
+          />
+        </div>
+      </div>
+
+      <!-- Section 1 - What Will You See -->
+      <div
+        style="
+          width: 335px;
+          height: 441px;
+          left: 20px;
+          top: 130px;
+          position: absolute;
+          background: white;
+          box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.07);
+          overflow: hidden;
+          border-radius: 16px;
+          outline: 1px #d1d5db solid;
+          outline-offset: -1px;
+        "
+      >
+        <div
+          style="
+            left: 18px;
+            top: 20px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #007e72;
+            font-size: 16px;
+            font-weight: 800;
+            word-wrap: break-word;
+          "
+        >
+          1.
+        </div>
+
+        <div
+          style="
+            left: 46px;
+            top: 20px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: black;
+            font-size: 16px;
+            font-weight: 800;
+            word-wrap: break-word;
+          "
+        >
+          What will you see?
+        </div>
+
+        <div
+          style="
+            width: 198px;
+            height: 1px;
+            left: 18px;
+            top: 49px;
+            position: absolute;
+            background: #d1d5db;
+          "
+        ></div>
+
+        <div
+          style="
+            left: 18px;
+            top: 60px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: black;
+            font-size: 13.5px;
+            font-weight: 400;
+            line-height: 19.58px;
+            word-wrap: break-word;
+          "
+        >
+          Choose the type of symbols displayed during<br />the test
+        </div>
+
+        <div
+          style="
+            width: 145px;
+            height: 47px;
+            left: 18px;
+            top: 120px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 145px;
+              height: 47px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #007e72;
+              border-radius: 14px;
+            "
+          ></div>
+          <div
+            style="
+              left: 46px;
+              top: 15px;
+              position: absolute;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: white;
+              font-size: 15px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Shapes
+          </div>
+        </div>
+
+        <div
+          style="
+            width: 145px;
+            height: 47px;
+            left: 172px;
+            top: 120px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 145px;
+              height: 47px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #f1f5f9;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+          <div
+            style="
+              left: 47.5px;
+              top: 15px;
+              position: absolute;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 15px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Letters
+          </div>
+        </div>
+
+        <div
+          style="
+            width: 145px;
+            height: 47px;
+            left: 18px;
+            top: 187px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 145px;
+              height: 47px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #f1f5f9;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+          <div
+            style="
+              left: 50px;
+              top: 15px;
+              position: absolute;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 15px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Plants
+          </div>
+        </div>
+
+        <div
+          style="
+            width: 145px;
+            height: 47px;
+            left: 172px;
+            top: 187px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 145px;
+              height: 47px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #f1f5f9;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+          <div
+            style="
+              left: 54px;
+              top: 15px;
+              position: absolute;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 15px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Food
+          </div>
+        </div>
+
+        <div
+          style="
+            width: 145px;
+            height: 159px;
+            left: 18px;
+            top: 262px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 145px;
+              height: 159px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: white;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+          <div
+            style="
+              width: 66px;
+              height: 67px;
+              left: 39.5px;
+              top: 20px;
+              position: absolute;
+              background: #e0a211;
+              box-shadow: 0px 2px 8px rgba(224, 162, 17, 0.2);
+              border-radius: 24px;
+            "
+          ></div>
+          <div
+            style="
+              left: 32.5px;
+              top: 102px;
+              position: absolute;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 15px;
+              font-weight: 800;
+              word-wrap: break-word;
+            "
+          >
+            Go Symbol
+          </div>
+          <div
+            style="
+              left: 45.5px;
+              top: 123px;
+              position: absolute;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 13px;
+              font-weight: 400;
+              word-wrap: break-word;
+            "
+          >
+            Respond
+          </div>
+        </div>
+
+        <div
+          style="
+            width: 145px;
+            height: 159px;
+            left: 172px;
+            top: 262px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 145px;
+              height: 159px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: white;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+          <div
+            style="
+              width: 66px;
+              height: 67px;
+              left: 39.5px;
+              top: 20px;
+              position: absolute;
+              background: #1054b4;
+              box-shadow: 0px 2px 8px rgba(66, 64, 226, 0.2);
+              border-radius: 100px;
+            "
+          ></div>
+          <div
+            style="
+              left: 18.5px;
+              top: 102px;
+              position: absolute;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 15px;
+              font-weight: 800;
+              word-wrap: break-word;
+            "
+          >
+            No-Go Symbol
+          </div>
+          <div
+            style="
+              left: 25px;
+              top: 123px;
+              position: absolute;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 13px;
+              font-weight: 400;
+              word-wrap: break-word;
+            "
+          >
+            Do not respond
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2 - Response Method -->
+      <div
+        style="
+          width: 335px;
+          height: 310px;
+          left: 20px;
+          top: 596px;
+          position: absolute;
+          background: white;
+          box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.07);
+          overflow: hidden;
+          border-radius: 16px;
+          outline: 1px #d1d5db solid;
+          outline-offset: -1px;
+        "
+      >
+        <div
+          style="
+            left: 18px;
+            top: 20px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #007e72;
+            font-size: 16px;
+            font-weight: 800;
+            word-wrap: break-word;
+          "
+        >
+          2.
+        </div>
+
+        <div
+          style="
+            left: 46px;
+            top: 20px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: black;
+            font-size: 16px;
+            font-weight: 800;
+            word-wrap: break-word;
+          "
+        >
+          Response Method
+        </div>
+
+        <div
+          style="
+            width: 192px;
+            height: 1px;
+            left: 18px;
+            top: 49px;
+            position: absolute;
+            background: #d1d5db;
+          "
+        ></div>
+
+        <div
+          style="
+            left: 18px;
+            top: 60px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: black;
+            font-size: 13.5px;
+            font-weight: 400;
+            line-height: 19.58px;
+            word-wrap: break-word;
+          "
+        >
+          Choose how you would like to submit your<br />response
+        </div>
+
+        <div
+          id="verbalBtn"
+          class="unselected"
+          style="
+            width: 299px;
+            height: 75px;
+            left: 18px;
+            top: 120px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 299px;
+              height: 75px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #f1f5f9;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+
+          <div
+            style="
+              width: 48px;
+              height: 48px;
+              left: 18px;
+              top: 13.5px;
+              position: absolute;
+              background: #F8D8C3;
+              border-radius: 14px;
+            "
+          >
+            <div style="left: 11.5px; top: 11.5px; position: absolute">
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.5 2.08325C11.6712 2.08325 10.8763 2.41249 10.2903 2.99854C9.70424 3.58459 9.375 4.37945 9.375 5.20825V12.4999C9.375 13.3287 9.70424 14.1236 10.2903 14.7096C10.8763 15.2957 11.6712 15.6249 12.5 15.6249C13.3288 15.6249 14.1237 15.2957 14.7097 14.7096C15.2958 14.1236 15.625 13.3287 15.625 12.4999V5.20825C15.625 4.37945 15.2958 3.58459 14.7097 2.99854C14.1237 2.41249 13.3288 2.08325 12.5 2.08325Z"
+                  stroke="#E94016"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M19.7913 10.4167V12.5001C19.7913 14.434 19.0231 16.2886 17.6557 17.6561C16.2882 19.0235 14.4335 19.7917 12.4997 19.7917C10.5658 19.7917 8.71114 19.0235 7.34369 17.6561C5.97623 16.2886 5.20801 14.434 5.20801 12.5001V10.4167"
+                  stroke="#E94016"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M12.5 19.7917V22.9167"
+                  stroke="#E94016"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 17.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 16px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Verbal Response
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 40.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 14px;
+              font-weight: 400;
+              word-wrap: break-word;
+            "
+          >
+            Say "Go" aloud
+          </div>
+        </div>
+
+        <div
+          id="screenBtn"
+          class="selected"
+          style="
+            width: 299px;
+            height: 75px;
+            left: 18px;
+            top: 215px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 299px;
+              height: 75px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #f1f5f9;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+
+          <div
+            style="
+              width: 48px;
+              height: 48px;
+              left: 18px;
+              top: 13.5px;
+              position: absolute;
+              background: #F8D8C3;
+              border-radius: 14px;
+            "
+          >
+            <div style="left: 11.5px; top: 11.5px; position: absolute">
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18.7497 11.4584V6.25008C18.7497 5.69755 18.5302 5.16764 18.1395 4.77694C17.7488 4.38624 17.2189 4.16675 16.6663 4.16675C16.1138 4.16675 15.5839 4.38624 15.1932 4.77694C14.8025 5.16764 14.583 5.69755 14.583 6.25008"
+                  stroke="#E94016"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M14.5837 10.4166V4.16659C14.5837 3.61405 14.3642 3.08415 13.9735 2.69345C13.5828 2.30275 13.0529 2.08325 12.5003 2.08325C11.9478 2.08325 11.4179 2.30275 11.0272 2.69345C10.6365 3.08415 10.417 3.61405 10.417 4.16659V6.24992"
+                  stroke="#E94016"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M10.4167 10.9376V6.25008C10.4167 5.69755 10.1972 5.16764 9.80647 4.77694C9.41577 4.38624 8.88587 4.16675 8.33333 4.16675C7.7808 4.16675 7.25089 4.38624 6.86019 4.77694C6.46949 5.16764 6.25 5.69755 6.25 6.25008V14.5834"
+                  stroke="#E94016"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M18.7503 8.33333C18.7503 7.7808 18.9698 7.25089 19.3605 6.86019C19.7512 6.46949 20.2811 6.25 20.8336 6.25C21.3861 6.25 21.916 6.46949 22.3067 6.86019C22.6974 7.25089 22.9169 7.7808 22.9169 8.33333V14.5833C22.9169 16.7935 22.039 18.9131 20.4762 20.4759C18.9134 22.0387 16.7937 22.9167 14.5836 22.9167H12.5003C9.5836 22.9167 7.81277 22.0208 6.26069 20.4792L2.51069 16.7292C2.15229 16.3322 1.96026 15.8127 1.97436 15.2781C1.98846 14.7435 2.20761 14.2347 2.58644 13.8573C2.96526 13.4798 3.47475 13.2624 4.00941 13.2502C4.54406 13.238 5.06294 13.4319 5.4586 13.7917L7.29194 13.5417"
+                  stroke="#E94016"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 17.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 16px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Touch Response
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 40.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 14px;
+              font-weight: 400;
+              word-wrap: break-word;
+            "
+          >
+            Tap a button
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3 - Audio Options -->
+      <div
+        style="
+          width: 335px;
+          height: 310px;
+          left: 20px;
+          top: 931px;
+          position: absolute;
+          background: white;
+          box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.07);
+          overflow: hidden;
+          border-radius: 16px;
+          outline: 1px #d1d5db solid;
+          outline-offset: -1px;
+        "
+      >
+        <div
+          style="
+            left: 18px;
+            top: 20px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #007e72;
+            font-size: 16px;
+            font-weight: 800;
+            word-wrap: break-word;
+          "
+        >
+          3.
+        </div>
+
+        <div
+          style="
+            left: 46px;
+            top: 20px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: black;
+            font-size: 16px;
+            font-weight: 800;
+            word-wrap: break-word;
+          "
+        >
+          Audio Options
+        </div>
+
+        <div
+          style="
+            width: 192px;
+            height: 1px;
+            left: 18px;
+            top: 49px;
+            position: absolute;
+            background: #d1d5db;
+          "
+        ></div>
+
+        <div
+          style="
+            left: 18px;
+            top: 60px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: black;
+            font-size: 13.5px;
+            font-weight: 400;
+            line-height: 19.58px;
+            word-wrap: break-word;
+          "
+        >
+          Choose if you wish to hear audio with<br />each symbol
+        </div>
+
+        <div
+          id="audioYes"
+          class="selected"
+          style="
+            width: 299px;
+            height: 75px;
+            left: 18px;
+            top: 120px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 299px;
+              height: 75px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #f1f5f9;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+
+          <div
+            style="
+              width: 48px;
+              height: 48px;
+              left: 18px;
+              top: 13.5px;
+              position: absolute;
+              background: #c2d2f9;
+              border-radius: 14px;
+            "
+          >
+            <div style="left: 11.5px; top: 11.5px; position: absolute">
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.458 5.20825L6.24967 9.37492H2.08301V15.6249H6.24967L11.458 19.7916V5.20825Z"
+                  stroke="#0300C4"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M16.1875 8.8125C17.1639 9.78921 17.7124 11.1137 17.7124 12.4948C17.7124 13.8759 17.1639 15.2004 16.1875 16.1771"
+                  stroke="#0300C4"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M19.8643 5.1355C21.8171 7.08891 22.9141 9.73795 22.9141 12.5001C22.9141 15.2622 21.8171 17.9113 19.8643 19.8647"
+                  stroke="#0300C4"
+                  stroke-width="1.65"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 17.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 16px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Audio On
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 40.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 14px;
+              font-weight: 400;
+              word-wrap: break-word;
+            "
+          >
+            Symbol tone plays
+          </div>
+        </div>
+
+        <div
+          id="audioNo"
+          class="unselected"
+          style="
+            width: 299px;
+            height: 75px;
+            left: 18px;
+            top: 215px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 299px;
+              height: 75px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #f1f5f9;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+
+          <div
+            style="
+              width: 48px;
+              height: 48px;
+              left: 18px;
+              top: 13.5px;
+              position: absolute;
+              background: #c2d2f9;
+              border-radius: 14px;
+            "
+          >
+            <div style="left: 11.5px; top: 11.5px; position: absolute">
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_audio_off)">
+                  <path
+                    d="M11.458 5.20825L6.24967 9.37492H2.08301V15.6249H6.24967L11.458 19.7916V5.20825Z"
+                    stroke="#0300C4"
+                    stroke-width="1.83333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M23.958 9.375L17.708 15.625"
+                    stroke="#0300C4"
+                    stroke-width="1.83333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M17.708 9.375L23.958 15.625"
+                    stroke="#0300C4"
+                    stroke-width="1.83333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_audio_off">
+                    <rect width="25" height="25" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 17.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 16px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Audio Off
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 40.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 14px;
+              font-weight: 400;
+              word-wrap: break-word;
+            "
+          >
+            Silent Mode
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4 - Difficulty -->
+      <div
+        style="
+          width: 335px;
+          height: 385px;
+          left: 20px;
+          top: 1266px;
+          position: absolute;
+          background: white;
+          box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.07);
+          overflow: hidden;
+          border-radius: 16px;
+          outline: 1px #d1d5db solid;
+          outline-offset: -1px;
+        "
+      >
+        <div
+          style="
+            left: 18px;
+            top: 20px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #007e72;
+            font-size: 16px;
+            font-weight: 800;
+            word-wrap: break-word;
+          "
+        >
+          4.
+        </div>
+
+        <div
+          style="
+            left: 46px;
+            top: 20px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: black;
+            font-size: 16px;
+            font-weight: 800;
+            word-wrap: break-word;
+          "
+        >
+          Difficulty
+        </div>
+
+        <div
+          style="
+            width: 192px;
+            height: 1px;
+            left: 18px;
+            top: 49px;
+            position: absolute;
+            background: #d1d5db;
+          "
+        ></div>
+
+        <div
+          style="
+            left: 18px;
+            top: 60px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: black;
+            font-size: 13.5px;
+            font-weight: 400;
+            line-height: 19.58px;
+            word-wrap: break-word;
+          "
+        >
+          Select the difficulty level for this test
+        </div>
+
+        <div
+          style="
+            width: 299px;
+            height: 75px;
+            left: 18px;
+            top: 100px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 299px;
+              height: 75px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #f1f5f9;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+
+          <div
+            style="
+              width: 48px;
+              height: 48px;
+              left: 18px;
+              top: 13.5px;
+              position: absolute;
+              background: #badfdb;
+              border-radius: 14px;
+            "
+          >
+            <div style="left: 11.5px; top: 11.5px; position: absolute">
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M25 25H17.8571V0H25V25ZM19.6429 23.0769H23.2143V1.92308H19.6429V23.0769ZM16.0714 25H8.92857V7.69231H16.0714V25ZM10.7143 23.0769H14.2857V9.61539H10.7143V23.0769ZM7.14286 25H0V13.4615H7.14286V25ZM1.78571 23.0769H5.35714V15.3846H1.78571V23.0769Z"
+                  fill="#007E72"
+                />
+                <rect x="0.5" y="14" width="6" height="10" fill="#007E72" />
+              </svg>
+            </div>
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 17.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 16px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Beginner
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 40.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 14px;
+              font-weight: 400;
+              word-wrap: break-word;
+            "
+          >
+            Slower pace
+          </div>
+        </div>
+
+        <div
+          style="
+            width: 299px;
+            height: 75px;
+            left: 18px;
+            top: 195px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 299px;
+              height: 75px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #007E72;
+              border-radius: 14px;
+            "
+          ></div>
+
+          <div
+            style="
+              width: 48px;
+              height: 48px;
+              left: 18px;
+              top: 13.5px;
+              position: absolute;
+              background: #014841;
+              border-radius: 14px;
+            "
+          >
+            <div style="left: 11.5px; top: 11.5px; position: absolute">
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M25 25H17.8571V0H25V25ZM19.6429 23.0769H23.2143V1.92308H19.6429V23.0769ZM16.0714 25H8.92857V7.69231H16.0714V25ZM10.7143 23.0769H14.2857V9.61539H10.7143V23.0769ZM7.14286 25H0V13.4615H7.14286V25ZM1.78571 23.0769H5.35714V15.3846H1.78571V23.0769Z"
+                  fill="#FFFFFF"
+                />
+                <rect x="0.5" y="14" width="6" height="10" fill="#FFFFFF" />
+                <rect x="9.5" y="9" width="6" height="15" fill="#FFFFFF" />
+              </svg>
+            </div>
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 17.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: white;
+              font-size: 16px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Intermediate
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 40.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: white;
+              font-size: 14px;
+              font-weight: 400;
+              word-wrap: break-word;
+            "
+          >
+            Medium pace
+          </div>
+        </div>
+
+        <div
+          style="
+            width: 299px;
+            height: 75px;
+            left: 18px;
+            top: 290px;
+            position: absolute;
+          "
+        >
+          <div
+            style="
+              width: 299px;
+              height: 75px;
+              left: 0;
+              top: 0;
+              position: absolute;
+              background: #f1f5f9;
+              border-radius: 14px;
+              border: 1px #d1d5db solid;
+            "
+          ></div>
+
+          <div
+            style="
+              width: 48px;
+              height: 48px;
+              left: 18px;
+              top: 13.5px;
+              position: absolute;
+              background: #badfdb;
+              border-radius: 14px;
+            "
+          >
+            <div style="left: 11.5px; top: 11.5px; position: absolute">
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M25 25H17.8571V0H25V25ZM19.6429 23.0769H23.2143V1.92308H19.6429V23.0769ZM16.0714 25H8.92857V7.69231H16.0714V25ZM10.7143 23.0769H14.2857V9.61539H10.7143V23.0769ZM7.14286 25H0V13.4615H7.14286V25ZM1.78571 23.0769H5.35714V15.3846H1.78571V23.0769Z"
+                  fill="#007E72"
+                />
+                <rect x="0.5" y="14" width="6" height="10" fill="#007E72" />
+                <rect x="9.5" y="9" width="6" height="15" fill="#007E72" />
+                <rect x="18.5" y="1" width="6" height="23" fill="#007E72" />
+              </svg>
+            </div>
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 17.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 16px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Advanced
+          </div>
+
+          <div
+            style="
+              left: 83px;
+              top: 40.5px;
+              position: absolute;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: black;
+              font-size: 14px;
+              font-weight: 400;
+              word-wrap: break-word;
+            "
+          >
+            Fast pace
+          </div>
+        </div>
+      </div>
+
+      <!-- Primary Button  -->
+      <div
+        class="primaryBtnHover"
+        id="proceedBtn"
+        style="
+          width: 335px;
+          height: 48px;
+          left: 20px;
+          top: 1671px;
+          position: absolute;
+          cursor: pointer;
+        "
+      >
+        <div
+          style="
+            width: 335px;
+            height: 48px;
+            left: 0;
+            top: 0;
+            position: absolute;
+            background: #007e72;
+            border-radius: 100000px;
+          "
+        ></div>
+
+        <div style="left: 111px; top: 16px; position: absolute">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M3.33398 2L12.6673 8L3.33398 14V2Z" fill="white" />
+          </svg>
+        </div>
+
+        <div
+          style="
+            left: 137px;
+            top: 15px;
+            position: absolute;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            word-wrap: break-word;
+          "
+        >
+          Proceed
+        </div>
+      </div>
+
+      <!-- Footer Navigation Section -->
+      <div
+        style="
+          width: 375px;
+          height: 83px;
+          position: fixed;
+          left: 50%;
+          bottom: 0;
+          transform: translateX(-50%);
+          background: #007e72;
+          z-index: 999;
+        "
+      >
+        <!-- Selected Button Background -->
+        <div style="position: absolute; left: 105px; top: 6px">
+          <svg
+            width="75"
+            height="60"
+            viewBox="0 0 75 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 11.5385C0 5.16595 4.47715 0 10 0H65C70.5229 0 75 5.16595 75 11.5385V48.4615C75 54.8341 70.5229 60 65 60H10C4.47715 60 0 54.8341 0 48.4615V11.5385Z"
+              fill="#014841"
+            />
+          </svg>
+        </div>
+
+        <!-- Home Button -->
+        <div
+          style="
+            width: 75px;
+            height: 44px;
+            position: absolute;
+            left: 15px;
+            top: 10px;
+          "
+        >
+          <div style="position: absolute; left: 26.5px; top: 0">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.75 8.24992L11 1.83325L19.25 8.24992V18.3333C19.25 18.8195 19.0568 19.2858 18.713 19.6296C18.3692 19.9734 17.9029 20.1666 17.4167 20.1666H4.58333C4.0971 20.1666 3.63079 19.9734 3.28697 19.6296C2.94315 19.2858 2.75 18.8195 2.75 18.3333V8.24992Z"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8.25 20.1667V11H13.75V20.1667"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div
+            style="
+              position: absolute;
+              left: 17.5px;
+              top: 27px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              text-align: center;
+              color: white;
+              font-size: 14px;
+              font-weight: 600;
+              word-wrap: break-word;
+            "
+          >
+            Home
+          </div>
+        </div>
+
+        <!-- Tests Button -->
+        <div
+          style="
+            width: 75px;
+            height: 44px;
+            position: absolute;
+            left: 105px;
+            top: 10px;
+          "
+        >
+          <div style="position: absolute; left: 26.5px; top: 0">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13.7497 1.83325H8.24967C7.74341 1.83325 7.33301 2.24366 7.33301 2.74992V4.58325C7.33301 5.08951 7.74341 5.49992 8.24967 5.49992H13.7497C14.2559 5.49992 14.6663 5.08951 14.6663 4.58325V2.74992C14.6663 2.24366 14.2559 1.83325 13.7497 1.83325Z"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14.667 3.66675H16.5003C16.9866 3.66675 17.4529 3.8599 17.7967 4.20372C18.1405 4.54754 18.3337 5.01385 18.3337 5.50008V18.3334C18.3337 18.8196 18.1405 19.286 17.7967 19.6298C17.4529 19.9736 16.9866 20.1667 16.5003 20.1667H5.50033C5.0141 20.1667 4.54778 19.9736 4.20396 19.6298C3.86015 19.286 3.66699 18.8196 3.66699 18.3334V5.50008C3.66699 5.01385 3.86015 4.54754 4.20396 4.20372C4.54778 3.8599 5.0141 3.66675 5.50033 3.66675H7.33366"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11 10.0833H14.6667"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11 14.6667H14.6667"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.33301 10.0833H7.34301"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.33301 14.6667H7.34301"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div
+            style="
+              position: absolute;
+              left: 18.5px;
+              top: 27px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              text-align: center;
+              color: white;
+              font-size: 14px;
+              font-weight: 600;
+              word-wrap: break-word;
+            "
+          >
+            Tests
+          </div>
+        </div>
+
+        <!-- Progress Button -->
+        <div
+          style="
+            width: 75px;
+            height: 44px;
+            position: absolute;
+            left: 195px;
+            top: 10px;
+          "
+        >
+          <div style="position: absolute; left: 26px; top: 0">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21.0837 5.5L12.3753 14.2083L7.79199 9.625L0.916992 16.5"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15.583 5.5H21.083V11"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div
+            style="
+              position: absolute;
+              left: 7px;
+              top: 27px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              text-align: center;
+              color: white;
+              font-size: 14px;
+              font-weight: 600;
+              word-wrap: break-word;
+            "
+          >
+            Progress
+          </div>
+        </div>
+
+        <!-- Settings Button -->
+        <div
+          style="
+            width: 75px;
+            height: 44px;
+            position: absolute;
+            left: 285px;
+            top: 10px;
+          "
+        >
+          <div style="position: absolute; left: 26.5px; top: 0">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_settings)">
+                <path
+                  d="M11 13.75C12.5188 13.75 13.75 12.5188 13.75 11C13.75 9.48122 12.5188 8.25 11 8.25C9.48122 8.25 8.25 9.48122 8.25 11C8.25 12.5188 9.48122 13.75 11 13.75Z"
+                  stroke="white"
+                  stroke-width="1.83333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M17.7837 13.7501C17.6616 14.0266 17.6252 14.3333 17.6792 14.6306C17.7331 14.928 17.8748 15.2024 18.0862 15.4184L18.1412 15.4734C18.3116 15.6437 18.4468 15.8459 18.5391 16.0684C18.6314 16.291 18.6789 16.5296 18.6789 16.7705C18.6789 17.0114 18.6314 17.25 18.5391 17.4726C18.4468 17.6951 18.3116 17.8973 18.1412 18.0676C17.9709 18.238 17.7687 18.3733 17.5461 18.4655C17.3236 18.5578 17.085 18.6053 16.8441 18.6053C16.6031 18.6053 16.3646 18.5578 16.142 18.4655C15.9195 18.3733 15.7173 18.238 15.547 18.0676L15.492 18.0126C15.276 17.8013 15.0016 17.6595 14.7042 17.6056C14.4068 17.5517 14.1001 17.5881 13.8237 17.7101C13.5525 17.8263 13.3213 18.0192 13.1584 18.2652C12.9956 18.5111 12.9082 18.7993 12.907 19.0942V19.2501C12.907 19.7363 12.7138 20.2026 12.37 20.5464C12.0262 20.8903 11.5599 21.0834 11.0737 21.0834C10.5874 21.0834 10.1211 20.8903 9.7773 20.5464C9.43348 20.2026 9.24033 19.7363 9.24033 19.2501V19.1676C9.23323 18.8642 9.13502 18.5699 8.95846 18.3231C8.7819 18.0762 8.53517 17.8882 8.25033 17.7834C7.97384 17.6614 7.66715 17.625 7.36979 17.6789C7.07242 17.7328 6.79803 17.8746 6.58199 18.0859L6.52699 18.1409C6.35673 18.3114 6.15453 18.4466 5.93197 18.5389C5.7094 18.6311 5.47084 18.6786 5.22991 18.6786C4.98898 18.6786 4.75042 18.6311 4.52785 18.5389C4.30529 18.4466 4.10309 18.3114 3.93283 18.1409C3.76237 17.9706 3.62714 17.7685 3.53488 17.5459C3.44262 17.3233 3.39513 17.0848 3.39513 16.8438C3.39513 16.6029 3.44262 16.3643 3.53488 16.1418C3.62714 15.9192 3.76237 15.717 3.93283 15.5467L3.98783 15.4917C4.21453 15.2698 4.36572 14.9823 4.42 14.6697C4.47429 14.3572 4.42892 14.0354 4.29033 13.7501C4.17413 13.479 3.98118 13.2477 3.73525 13.0849C3.48932 12.922 3.20113 12.8346 2.90616 12.8334H2.75033C2.2641 12.8334 1.79778 12.6403 1.45396 12.2964C1.11015 11.9526 0.916992 11.4863 0.916992 11.0001C0.916992 10.5139 1.11015 10.0475 1.45396 9.70372C1.79778 9.3599 2.2641 9.16675 2.75033 9.16675H2.83283C3.1278 9.16557 3.41599 9.07817 3.66192 8.9153C3.90785 8.75243 4.10079 8.5212 4.21699 8.25008C4.33901 7.9736 4.37541 7.6669 4.3215 7.36954C4.26758 7.07218 4.12582 6.79779 3.91449 6.58175L3.85949 6.52675C3.68904 6.35648 3.55381 6.15429 3.46155 5.93172C3.36929 5.70916 3.3218 5.47059 3.3218 5.22967C3.3218 4.98874 3.36929 4.75017 3.46155 4.52761C3.55381 4.30504 3.68904 4.10285 3.85949 3.93258C4.02976 3.76212 4.23196 3.6269 4.45452 3.53464C4.67708 3.44238 4.91565 3.39489 5.15658 3.39489C5.3975 3.39489 5.63607 3.44238 5.85863 3.53464C6.0812 3.6269 6.28339 3.76212 6.45366 3.93258L6.50866 3.98758C6.73057 4.21428 7.01814 4.36547 7.3307 4.41976C7.64326 4.47405 7.96497 4.42868 8.25033 4.29008C8.52145 4.17388 8.75268 3.98094 8.91554 3.73501C9.07841 3.48908 9.16582 3.20089 9.16699 2.90591V2.75008C9.16699 2.26385 9.36015 1.79754 9.70396 1.45372C10.0478 1.1099 10.5141 0.916748 11.0003 0.916748C11.4866 0.916748 11.9529 1.1099 12.2967 1.45372C12.6405 1.79754 12.8337 2.26385 12.8337 2.75008V2.83258C12.8348 3.12755 12.9222 3.41574 13.0851 3.66168C13.248 3.90761 13.4792 4.10055 13.7503 4.21675C14.0268 4.33877 14.3335 4.37517 14.6309 4.32125C14.9282 4.26734 15.2026 4.12557 15.4187 3.91425L15.4737 3.85925C15.6439 3.68879 15.8461 3.55357 16.0687 3.46131C16.2912 3.36904 16.5298 3.32156 16.7707 3.32156C17.0117 3.32156 17.2502 3.36904 17.4728 3.46131C17.6954 3.55357 17.8976 3.68879 18.0678 3.85925C18.2383 4.02952 18.3735 4.23171 18.4658 4.45427C18.558 4.67684 18.6055 4.9154 18.6055 5.15633C18.6055 5.39726 18.558 5.63583 18.4658 5.85839C18.3735 6.08095 18.2383 6.28315 18.0678 6.45342L18.0128 6.50842C17.7981 6.73874 17.6606 7.03035 17.6195 7.34257C17.5784 7.65479 17.6358 7.97205 17.7837 8.25008C17.8999 8.5212 18.0928 8.75243 18.3387 8.9153C18.5847 9.07817 18.8729 9.16557 19.1678 9.16675H19.2503C19.7366 9.16675 20.2029 9.3599 20.5467 9.70372C20.8905 10.0475 21.0837 10.5139 21.0837 11.0001C21.0837 11.4863 20.8905 11.9526 20.5467 12.2964C20.2029 12.6403 19.7366 12.8334 19.2503 12.8334H19.1678C18.8729 12.8346 18.5847 12.922 18.3387 13.0849C18.0928 13.2477 17.8999 13.479 17.7837 13.7501Z"
+                  stroke="white"
+                  stroke-width="1.83333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_settings">
+                  <rect width="22" height="22" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div
+            style="
+              position: absolute;
+              left: 9px;
+              top: 27px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              text-align: center;
+              color: white;
+              font-size: 14px;
+              font-weight: 600;
+              word-wrap: break-word;
+            "
+          >
+            Settings
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/practice.js"></script>
+  </body>
+</html>

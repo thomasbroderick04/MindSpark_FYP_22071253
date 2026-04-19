@@ -3,24 +3,24 @@
 // audio playback, and movement between the different test pages.
 
 (() => {
-  const TOTAL_TRIALS = 50;
+  const Total_Trials = 4;
   let Audio_Option = localStorage.getItem("audio_option") || 'Y'; // Retrieves the user's selected audio setting from local storage. It defaults to 'Y' if no value has been stored.
-  const STIMULUS_MS = 800; // Defines how long the stimulus page stays visible before automatically moving on (if the user does nothing).
-  const STIMULUS_HALF_MS = 600; // Defines when the stimulus visually changes (fades to the background color). Helps with the transition when the same shape is displayed in succession.
-  const FEEDBACK_MS = 100; // Defines how long a feedback page stays visible before the buffer period begins.
-  const TRIAL_WAIT_TIME_MS = 650; // Defines The extra waiting time between trials after feedback.
-  const PROGRESS_PX = 295;
-  const COUNTDOWN_SECONDS = 10;
-  const GO_NOGO_RATIO = .5; // Defines the ratio used to randomly determine whether a 'Go' or a 'No-Go' stimulus page is displayed.
+  const Stimulus_MS = 800; // Defines how long the stimulus page stays visible before automatically moving on (if the user does nothing).
+  const Stimulus_Half_MS = 600; // Defines when the stimulus visually changes (fades to the background color). Helps with the transition when the same shape is displayed in succession.
+  const Feedback_MS = 100; // Defines how long a feedback page stays visible before the buffer period begins.
+  const Trial_Wait_Time_MS = 650; // Defines The extra waiting time between trials after feedback.
+  const Progress_Px = 295;
+  const Countdown_Seconds = 10;
+  const Go_NoGo_Ratio = .5; // Defines the ratio used to randomly determine whether a 'Go' or a 'No-Go' stimulus page is displayed.
 
-  // We use two different audio tones: a high beep and a low beep. A specific tone is
+  // I use two different audio tones: a high beep and a low beep. A specific tone is
   // used for a 'Go' and a 'No-Go' symbol when the respective stimulus page is displayed.
-  const highBeep = new Audio('audio/GoNoGoCircleAudio.mp3');
-  const lowBeep  = new Audio('audio/GoNoGoSquareAudio.mp3');
+  const highBeep = new Audio('../audio/gonogo-circle-audio.mp3');
+  const lowBeep  = new Audio('../audio/gonogo-square-audio.mp3');
 
   // Using the 'S' structure to be able to store and retrieve numeric values from local storage.
   // Using this structure allows us to avoid having to do conversions from numeric to string and vice versa
-  // each time we want to store a numeric value in local storage.
+  // each time I want to store a numeric value in local storage.
   const S = {
     getInt(key, defaultValue) {
       const v = parseInt(localStorage.getItem(key), 10); // Read local storage item and convert to a number.
@@ -42,7 +42,7 @@
   }
 
   function endTestAndReset() {
-    window.location.href = "GoNoGoResultsPage6.html";
+    window.location.href = "gonogo-results-summary.html";
   }
 
   // This function is used to generate a random value based on a predefined ratio that
@@ -54,12 +54,12 @@
 
     // 'isGo' is assigned a value of 'true' or 'false' based on whether the random value
     // being generated is less than the defined 'Go' to 'No-Go' ratio.
-    const isGo = Math.random() < GO_NOGO_RATIO;
+    const isGo = Math.random() < Go_NoGo_Ratio;
 
     if (method === "V") {
-      return isGo ? "GoNoGoVocalOfficial2Page.html" : "GoNoGoVocalOfficial4Page.html";
+      return isGo ? "gonogo-test-verbal-circle.html" : "gonogo-test-verbal-square.html";
     } else { // Else, the response method is the screen output.
-      return isGo ? "GoNoGoOfficialPage2.html" : "GoNoGoOfficialPage4.html";
+      return isGo ? "gonogo-test-touch-circle.html" : "gonogo-test-touch-square.html";
     }
   }
 
@@ -70,7 +70,7 @@
   function advanceToNextTrialOrEnd() {
     const current = S.getInt("gng_trial", 1);
 
-    if (current >= TOTAL_TRIALS) {
+    if (current >= Total_Trials) {
       endTestAndReset();
       return;
     }
@@ -92,8 +92,8 @@
     const bar = document.getElementById("progress-bar");
     if (bar) {
       const completed = trial - 1;
-      const pct = completed / TOTAL_TRIALS;
-      bar.style.width = `${Math.round(PROGRESS_PX * pct)}px`;
+      const pct = completed / Total_Trials;
+      bar.style.width = `${Math.round(Progress_Px * pct)}px`;
     }
   }
 
@@ -128,7 +128,7 @@
     resetTestState();
 
     const el = document.getElementById("countdownSeconds");
-    let remaining = COUNTDOWN_SECONDS;
+    let remaining = Countdown_Seconds;
 
     if (el) el.textContent = remaining;
 
@@ -164,15 +164,15 @@
       sound.play().catch(() => {}); // Catch is for error handling in case the browser cannot play sound.
     }
 
-    const halfTimer = setTimeout(fadeStimulusToBackground, STIMULUS_HALF_MS);
+    const halfTimer = setTimeout(fadeStimulusToBackground, Stimulus_Half_MS);
 
     //
     const stimulusTimer = setTimeout(() => {
       if (responded) return;
 
       // Below code is executed when a user response was not detected within the time allocated
-      // for the user to respond. The time allowed for a user response is captured in 'STIMULUS_MS'.
-      // The setTimeout function is used to update the appropriate counters in the event that
+      // for the user to respond. The time allowed for a user response is captured in 'Stimulus_MS'.
+      // The setTimeout function is used to update the appropriate counters in the scenario that
       // a user response was not detected in the time allocated.
       clearTimeout(halfTimer);
 
@@ -186,7 +186,7 @@
       }
 
       advanceToNextTrialOrEnd();
-    }, STIMULUS_MS);
+    }, Stimulus_MS);
 
     // This function is called in response to the user clicking on the 'Go' button or when
     // a sound input is detected on the microphone.
@@ -200,11 +200,11 @@
       if (noGoPage) { // User clicked or provided sound input on a 'No-Go' stimulus page.
         S.setInt("gng_incorrect", S.getInt("gng_incorrect", 0) + 1);
         updateSequence(false);
-        window.location.href = "GoNoGoOfficialPage3.html"; // Display feedback page stating user is incorrect.
+        window.location.href = "gonogo-test-incorrect.html"; // Display feedback page stating user is incorrect.
       } else { // User clicked or provided sound input on a 'Go' stimulus page.
         S.setInt("gng_correct", S.getInt("gng_correct", 0) + 1);
         updateSequence(true);
-        window.location.href = "GoNoGoOfficialPage5.html"; // Display feedback page stating user is correct.
+        window.location.href = "gonogo-test-correct.html"; // Display feedback page stating user is correct.
       }
     }
 
@@ -266,8 +266,8 @@
     setTimeout(() => {
       setTimeout(() => {
         advanceToNextTrialOrEnd();
-      }, TRIAL_WAIT_TIME_MS);
-    }, FEEDBACK_MS);
+      }, Trial_Wait_Time_MS);
+    }, Feedback_MS);
   }
 
   // On page load, determine the appropriate function to call.
@@ -275,22 +275,22 @@
     const file = window.location.pathname.split("/").pop();
 
     switch (file) {
-      case "GoNoGoCountdownPage1.html":
+      case "gonogo-countdown.html":
         onCountdownPage();
         break;
 
-      case "GoNoGoOfficialPage2.html":
-      case "GoNoGoVocalOfficial2Page.html":
+      case "gonogo-test-touch-circle.html":
+      case "gonogo-test-verbal-circle.html":
         onStimulusPage(true);
         break;
 
-      case "GoNoGoOfficialPage4.html":
-      case "GoNoGoVocalOfficial4Page.html":
+      case "gonogo-test-touch-square.html":
+      case "gonogo-test-verbal-square.html":
         onStimulusPage(false);
         break;
 
-      case "GoNoGoOfficialPage3.html": // Correct Response
-      case "GoNoGoOfficialPage5.html": // Incorrect Response
+      case "gonogo-test-incorrect.html": // Correct Response
+      case "gonogo-test-correct.html": // Incorrect Response
         onFeedbackPage();
         break;
 

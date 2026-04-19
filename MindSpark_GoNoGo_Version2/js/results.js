@@ -149,20 +149,6 @@
     setText("perfLabel", label);
     setText("perfRange", range);
 
-    // This updates the colour of the performance label text based on the user's
-   // final accuracy percentage. The text colour is then
-   // adjusted according to the performance category.
-    const perfLabelColour = document.getElementById("perfLabel");
-
-    if (perfLabelColour) {
-      if (accuracyPercent >= 85) {
-        perfLabelColour.style.color = "#186904"; 
-      } else if (accuracyPercent >= 70) {
-        perfLabelColour.style.color = "#785202"; 
-      } else {
-        perfLabelColour.style.color = "#A71818"; 
-      }
-    }
     // This adjusts the width of the fill bar so that it reflects
     // the user's final accuracy percentage. The percentage is converted into a pixel width
     // based on the maximum width of the grey background bar.

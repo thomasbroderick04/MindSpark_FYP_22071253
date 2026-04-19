@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/gonogo-interaction-states.css">
+  </head>
+
+  <body
+    style="
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      font-family: Inter, sans-serif;
+    "
+  >
+    <div
+      style="
+        width: 375px;
+        height: 812px;
+        position: relative;
+        background: #d6d9dd;
+        overflow: hidden;
+        font-family: Inter, sans-serif;
+      "
+    >
+      <!-- Main Card -->
+      <div
+        style="
+          width: 335px;
+          height: 574px;
+          position: absolute;
+          left: 20px;
+          top: 130px;
+          background: white;
+          box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.07);
+          border-radius: 16px;
+          border: 1px #d1d5db solid;
+        "
+      ></div>
+
+      <!-- Stop Test Secondary Button -->
+      <div
+      style="
+        width: 335px;
+        height: 48px;
+        position: absolute;
+        left: 20px;
+        top: 724px;
+      "
+    >
+      <div
+        style="
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background: white;
+          border-radius: 100000px;
+          border: 1px #A71818 solid;
+        "
+      ></div>
+
+      <div
+        style="
+          position: absolute;
+          left: 132px;
+          top: 15px;
+          color: #A71818;
+          font-size: 15px;
+          font-weight: 700;
+        "
+      >
+        Stop Test
+      </div>
+    </div>
+
+      <!-- Stimulus Circle -->
+      <div
+        id="stimulus"
+        style="
+          width: 197px;
+          height: 198px;
+          position: absolute;
+          left: 89px;
+          top: 263px;
+          background: #1054B4;
+          border-radius: 50%;
+        "
+      ></div>
+
+      <!-- Trial Text -->
+      <div
+        style="
+          position: absolute;
+          left: 40px;
+          top: 150px;
+          flex-direction: column;
+          justify-content: center;
+          color: #1a2322;
+          font-size: 16px;
+          font-weight: 800;
+          word-wrap: break-word;
+        "
+      >
+        Trial <span id="trialNumber">2</span> of 100
+      </div>
+
+      <!-- Progress Bar -->
+      <div
+        style="
+          width: 295px;
+          height: 10px;
+          position: absolute;
+          left: 40px;
+          top: 180px;
+          background: #D0E5E2;
+          border-radius: 999px;
+          overflow: hidden;
+        "
+      >
+        <div
+          id="progress-bar"
+          style="
+            width: 11.8px;
+            height: 10px;
+            position: absolute;
+            background: #3A8C7E;
+            border-radius: 999px;
+          "
+        ></div>
+      </div>
+
+      <!-- Tap Button -->
+      <div
+        id="goBtn"
+        style="
+          width: 130px;
+          height: 130px;
+          left: 122.5px;
+          top: 514px;
+          position: absolute;
+          cursor: pointer;
+        "
+      >
+        <div
+          style="
+            width: 130px;
+            height: 130px;
+            background: #007E72;
+            border-radius: 9999px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            text-align: center;
+            pointer-events: none;
+          "
+        >
+          <div
+            style="
+              color: rgba(255, 255, 255, 0.82);
+              font-size: 14px;
+              font-family: Inter, sans-serif;
+              font-weight: 700;
+              line-height: 14px;
+              letter-spacing: 0.5px;
+              pointer-events: none;
+            "
+          >
+            Tap
+          </div>
+
+          <div
+            style="
+              color: white;
+              font-size: 30px;
+              font-family: Inter, sans-serif;
+              font-weight: 700;
+              line-height: 30px;
+              pointer-events: none;
+            "
+          >
+            Go
+          </div>
+        </div>
+      </div>
+
+      <!-- Header -->
+       <div
+       style="
+         width: 375px;
+         height: 110px;
+         left: 0px;
+         top: 0px;
+         position: absolute;
+         background:  #007e72;
+       "
+     >
+       <div
+         style="
+           position: absolute;
+           left: 20px;
+           top: 60px;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           color: white;
+           font-size: 22px;
+           font-weight: 800;
+           line-height: 26.4px;
+           word-wrap: break-word;
+         "
+       >
+         Go/No-Go Test
+       </div>
+
+       <!-- Profile Button -->
+       <div
+         style="
+           width: 44px;
+           height: 44px;
+           left: 311px;
+           top: 51.5px;
+           position: absolute;
+           background: #007e72;
+           border-radius: 22px;
+           outline: 1px #d1d5db solid;
+           outline-offset: -1px;
+         "
+       >
+         <div style="left: 11px; top: 11px; position: absolute;">
+           <svg
+             width="22"
+             height="22"
+             viewBox="0 0 22 22"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg"
+           >
+             <path
+               d="M18.3337 19.25V17.4167C18.3337 16.4442 17.9474 15.5116 17.2597 14.8239C16.5721 14.1363 15.6395 13.75 14.667 13.75H7.33366C6.3612 13.75 5.42857 14.1363 4.74093 14.8239C4.0533 15.5116 3.66699 16.4442 3.66699 17.4167V19.25"
+               stroke="white"
+               stroke-opacity="0.85"
+               stroke-width="1.83333"
+               stroke-linecap="round"
+               stroke-linejoin="round"
+             />
+             <path
+               d="M10.9997 10.0833C13.0247 10.0833 14.6663 8.44171 14.6663 6.41667C14.6663 4.39162 13.0247 2.75 10.9997 2.75C8.97463 2.75 7.33301 4.39162 7.33301 6.41667C7.33301 8.44171 8.97463 10.0833 10.9997 10.0833Z"
+               stroke="white"
+               stroke-opacity="0.85"
+               stroke-width="1.83333"
+               stroke-linecap="round"
+               stroke-linejoin="round"
+             />
+           </svg>
+         </div>
+       </div>
+
+       <!-- Notification Button -->
+       <div
+         style="
+           width: 44px;
+           height: 44px;
+           left: 257px;
+           top: 51.5px;
+           position: absolute;
+           background: #007e72;
+           border-radius: 22px;
+           outline: 1px #d1d5db solid;
+           outline-offset: -1px;
+         "
+       >
+         <div style="left: 12px; top: 12px; position: absolute;">
+           <svg
+             width="20"
+             height="20"
+             viewBox="0 0 20 20"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg"
+           >
+             <path
+               d="M15 6.66699C15 5.34091 14.4732 4.06914 13.5355 3.13146C12.5979 2.19378 11.3261 1.66699 10 1.66699C8.67392 1.66699 7.40215 2.19378 6.46447 3.13146C5.52678 4.06914 5 5.34091 5 6.66699C5 12.5003 2.5 14.167 2.5 14.167H17.5C17.5 14.167 15 12.5003 15 6.66699Z"
+               stroke="white"
+               stroke-opacity="0.9"
+               stroke-width="1.66667"
+               stroke-linecap="round"
+               stroke-linejoin="round"
+             />
+             <path
+               d="M11.4419 17.5C11.2954 17.7526 11.0851 17.9622 10.8321 18.1079C10.5791 18.2537 10.2922 18.3304 10.0003 18.3304C9.70828 18.3304 9.42142 18.2537 9.1684 18.1079C8.91539 17.9622 8.7051 17.7526 8.55859 17.5"
+               stroke="white"
+               stroke-opacity="0.9"
+               stroke-width="1.66667"
+               stroke-linecap="round"
+               stroke-linejoin="round"
+             />
+           </svg>
+         </div>
+       </div>
+     </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+  </body>
+</html>

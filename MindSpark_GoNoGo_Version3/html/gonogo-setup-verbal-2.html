@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/gonogo-interaction-states.css">
+  </head>
+
+  <body
+    style="
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      font-family: Inter, sans-serif;
+    "
+  >
+    <div
+      style="
+        width: 375px;
+        height: 812px;
+        position: relative;
+        background: #e0ecec;
+        overflow: hidden;
+        font-family: Inter, sans-serif;
+      "
+    >
+      <!-- Header -->
+      <div
+        style="
+          width: 375px;
+          height: 110px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background: linear-gradient(
+            135deg,
+            #003d38 0%,
+            #005c54 25%,
+            #007e72 50%,
+            #00a99d 75%,
+            #00c9b0 100%
+          );
+          border-bottom-right-radius: 24px;
+          border-bottom-left-radius: 24px;
+        "
+      >
+        <!-- Back Button -->
+        <a href="gonogo-setup-verbal-1.html">
+          <div
+            class="headerBtnHover"
+            style="
+              width: 44px;
+              height: 44px;
+              position: absolute;
+              left: 20px;
+              top: 51.5px;
+              background: #007e72;
+              border-radius: 22px;
+              outline: 1px #d1d5db solid;
+              outline-offset: -1px;
+            "
+          >
+            <div style="position: absolute; left: 12px; top: 12px">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.5 15L7.5 10L12.5 5"
+                  stroke="white"
+                  stroke-width="2.08333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Title -->
+        <div
+          style="
+            position: absolute;
+            left: 77px;
+            top: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 26.4px;
+            word-wrap: break-word;
+          "
+        >
+          Go/No-Go Test
+        </div>
+
+        <!-- Notification Button -->
+        <div
+          style="
+            width: 44px;
+            height: 44px;
+            position: absolute;
+            left: 257px;
+            top: 51.5px;
+            background: #007e72;
+            border-radius: 22px;
+            outline: 1px #d1d5db solid;
+            outline-offset: -1px;
+          "
+        >
+          <div style="position: absolute; left: 12px; top: 12px">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 6.6665C15 5.34042 14.4732 4.06865 13.5355 3.13097C12.5979 2.19329 11.3261 1.6665 10 1.6665C8.67392 1.6665 7.40215 2.19329 6.46447 3.13097C5.52678 4.06865 5 5.34042 5 6.6665C5 12.4998 2.5 14.1665 2.5 14.1665H17.5C17.5 14.1665 15 12.4998 15 6.6665Z"
+                stroke="white"
+                stroke-opacity="0.9"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11.4419 17.5C11.2954 17.7526 11.0851 17.9622 10.8321 18.1079C10.5791 18.2537 10.2922 18.3304 10.0003 18.3304C9.70828 18.3304 9.42142 18.2537 9.1684 18.1079C8.91539 17.9622 8.7051 17.7526 8.55859 17.5"
+                stroke="white"
+                stroke-opacity="0.9"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Profile Button -->
+        <div
+          style="
+            width: 44px;
+            height: 44px;
+            position: absolute;
+            left: 311px;
+            top: 51.5px;
+            border-radius: 22px;
+            outline: 1px #d1d5db solid;
+            outline-offset: -1px;
+            overflow: hidden;
+            background: #007e72;
+          "
+        >
+          <img
+            src="../images/profile-picture.jpeg"
+            alt="Profile"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            "
+          />
+        </div>
+      </div>
+
+      <!-- Page Title -->
+      <div
+        style="
+          position: absolute;
+          left: 20px;
+          top: 130px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          color: #1a1a1a;
+          font-size: 20px;
+          font-weight: 800;
+          word-wrap: break-word;
+        "
+      >
+        Verbal Response Setup
+      </div>
+
+      <!-- Main Card -->
+      <div
+        style="
+          width: 335px;
+          height: 379px;
+          position: absolute;
+          left: 20px;
+          top: 174px;
+          background: white;
+          box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.04);
+          border-radius: 18px;
+          border: 1px #d1d5db solid;
+        "
+      ></div>
+
+      <!-- Microphone and Silhouette Icon -->
+      <div
+        style="
+          width: 96px;
+          height: 96px;
+          left: 139.5px;
+          top: 209px;
+          position: absolute;
+          background: #f8d8c3;
+          border-radius: 22px;
+        "
+      >
+        <div
+          style="
+            left: 26.5px;
+            top: 26.5px;
+            width: 43px;
+            height: 43px;
+            position: absolute;
+          "
+        >
+          <div data-svg-wrapper style="left: 0px; top: 5.5px; position: absolute">
+            <svg
+              width="15"
+              height="33"
+              viewBox="0 0 15 33"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.2787 1C8.2787 3.77296 8.72891 6.06065 10.2296 8.07105C11.2801 9.3882 12.7808 10.7747 13.9814 12.2305C13.156 13.0624 12.3306 13.7556 11.4302 14.3102C10.6798 14.7262 9.92948 14.8648 9.25416 14.6568C9.77941 15.1421 10.3047 15.6274 10.7549 16.2513C11.2801 16.8752 11.055 17.6378 10.1546 18.123C9.17913 18.6776 8.2787 19.3709 7.37827 20.2027C6.70295 20.8267 6.47784 21.5199 6.85302 22.1438C7.30324 22.7677 8.20366 23.1837 9.17913 23.3916C10.0796 23.5996 10.8299 24.2235 10.8299 25.1247C10.8299 25.9566 10.3047 26.6499 9.3292 26.9965C7.90352 27.6204 6.25274 27.8284 4.45188 27.8284C3.25131 27.8284 2.05074 27.6204 1.00024 27.2045M3.32635 27.8284C3.32635 29.2842 2.65103 30.532 1.52549 31.7105"
+                stroke="#E94016"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div data-svg-wrapper style="left: 17.4px; top: 13px; position: absolute">
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 26 26"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.27734 3.1699L6.07424 3.13523L13.4914 0.5L13.4252 3.1699"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M2.27734 3.16992H13.4252"
+                stroke="#E94016"
+                stroke-width="0.984242"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M2.27734 3.16992H13.8446L19.1426 4.73025L11.019 6.08254L2.27734 3.16992Z"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M2.27731 3.16992L11.019 6.08254L10.7762 10.4861L1.96826 7.53885L2.27731 3.16992Z"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11.0189 6.08252L10.7761 10.4861L12.3876 10.3648"
+                stroke="#E94016"
+                stroke-width="0.984242"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10.7761 10.4861L12.3655 11.0342H12.3766"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M5.23548 7.64293C5.45493 7.64293 5.63283 7.19273 5.63283 6.63738C5.63283 6.08203 5.45493 5.63184 5.23548 5.63184C5.01603 5.63184 4.83813 6.08203 4.83813 6.63738C4.83813 7.19273 5.01603 7.64293 5.23548 7.64293Z"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3.66814 8.12842L3.31494 21.5473"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M0.500244 20.4202L3.3148 21.5471"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M0.500244 20.4203L3.34792 19.6228"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3.31494 21.5471L12.2222 18.8945"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12.4538 6.94933L22.8511 3.5166L22.6304 21.131L12.1448 24.5291L12.4538 6.94933Z"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12.1448 24.5289L14.9041 25.4998L25.5001 22.3445L22.6304 21.1309L12.1448 24.5289Z"
+                stroke="#E94016"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14.9043 25.5001L25.5003 22.3447"
+                stroke="#E94016"
+                stroke-width="0.984242"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M22.8514 3.5166L22.6306 21.131"
+                stroke="#E94016"
+                stroke-width="0.984242"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Centred Heading -->
+      <div
+        style="
+          width: 235px;
+          left: 70px;
+          top: 326px;
+          position: absolute;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          color: #1a1a1a;
+          font-size: 20px;
+          font-weight: 800;
+          line-height: 26px;
+          word-wrap: break-word;
+        "
+      >
+        Microphone placement
+      </div>
+
+      <!-- Centred Description -->
+      <div
+        style="
+          width: 272px;
+          left: 51.5px;
+          top: 362px;
+          position: absolute;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          color: black;
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 23.25px;
+          word-wrap: break-word;
+        "
+      >
+        Place microphone on a flat surface, 30–50 cm from your mouth
+      </div>
+
+      <!-- Information Card -->
+      <div
+        style="
+          width: 285px;
+          height: 97px;
+          left: 45px;
+          top: 431px;
+          position: absolute;
+          border-radius: 16px;
+          outline: 1px #d1d5db solid;
+          outline-offset: -1px;
+        "
+      >
+        <div data-svg-wrapper style="left: 20px; top: 33px; position: absolute">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="32" height="32" rx="16" fill="#BADFDB" />
+            <path
+              d="M16.8081 23.6004L16.7993 23.6018L16.7425 23.627L16.7265 23.6298L16.7153 23.627L16.6585 23.6018C16.65 23.5994 16.6436 23.6006 16.6393 23.6054L16.6361 23.6126L16.6225 23.9201L16.6265 23.9345L16.6345 23.9438L16.7177 23.997L16.7297 23.9999L16.7393 23.997L16.8225 23.9438L16.8321 23.9323L16.8353 23.9201L16.8217 23.6133C16.8196 23.6057 16.8151 23.6013 16.8081 23.6004ZM17.0201 23.5192L17.0097 23.5206L16.8617 23.5875L16.8537 23.5946L16.8513 23.6025L16.8657 23.9115L16.8697 23.9201L16.8761 23.9251L17.0369 23.992C17.0471 23.9944 17.0548 23.9924 17.0601 23.9862L17.0633 23.9762L17.0361 23.535C17.0335 23.5264 17.0281 23.5211 17.0201 23.5192ZM16.4481 23.5206C16.4446 23.5187 16.4404 23.5181 16.4364 23.5189C16.4323 23.5197 16.4288 23.5219 16.4265 23.5249L16.4217 23.535L16.3945 23.9762C16.3951 23.9848 16.3996 23.9905 16.4081 23.9934L16.4201 23.992L16.5809 23.9251L16.5889 23.9194L16.5921 23.9115L16.6057 23.6025L16.6033 23.5939L16.5953 23.5867L16.4481 23.5206Z"
+              fill="#007E72"
+            />
+            <path
+              d="M16 8C20.4184 8 24 11.5816 24 16C24 20.4184 20.4184 24 16 24C11.5816 24 8 20.4184 8 16C8 11.5816 11.5816 8 16 8ZM16 9.6C14.3026 9.6 12.6747 10.2743 11.4745 11.4745C10.2743 12.6747 9.6 14.3026 9.6 16C9.6 17.6974 10.2743 19.3253 11.4745 20.5255C12.6747 21.7257 14.3026 22.4 16 22.4C17.6974 22.4 19.3253 21.7257 20.5255 20.5255C21.7257 19.3253 22.4 17.6974 22.4 16C22.4 14.3026 21.7257 12.6747 20.5255 11.4745C19.3253 10.2743 17.6974 9.6 16 9.6ZM15.992 14.4C16.4384 14.4 16.8 14.7616 16.8 15.208V19.3072C16.9525 19.3953 17.0717 19.5312 17.1391 19.6939C17.2065 19.8566 17.2183 20.037 17.1727 20.2071C17.1271 20.3772 17.0267 20.5275 16.887 20.6347C16.7473 20.7419 16.5761 20.8 16.4 20.8H16.008C15.9019 20.8 15.7968 20.7791 15.6988 20.7385C15.6008 20.6979 15.5117 20.6384 15.4367 20.5633C15.3616 20.4883 15.3021 20.3992 15.2615 20.3012C15.2209 20.2032 15.2 20.0981 15.2 19.992V16C14.9878 16 14.7843 15.9157 14.6343 15.7657C14.4843 15.6157 14.4 15.4122 14.4 15.2C14.4 14.9878 14.4843 14.7843 14.6343 14.6343C14.7843 14.4843 14.9878 14.4 15.2 14.4H15.992ZM16 12C16.2122 12 16.4157 12.0843 16.5657 12.2343C16.7157 12.3843 16.8 12.5878 16.8 12.8C16.8 13.0122 16.7157 13.2157 16.5657 13.3657C16.4157 13.5157 16.2122 13.6 16 13.6C15.7878 13.6 15.5843 13.5157 15.4343 13.3657C15.2843 13.2157 15.2 13.0122 15.2 12.8C15.2 12.5878 15.2843 12.3843 15.4343 12.2343C15.5843 12.0843 15.7878 12 16 12Z"
+              fill="#007E72"
+            />
+          </svg>
+        </div>
+
+        <div
+          style="
+            width: 192px;
+            left: 73px;
+            top: 17px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: black;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 21px;
+            word-wrap: break-word;
+          "
+        >
+          Don't hold the device —<br />keep it on a flat, stable<br />surface
+        </div>
+      </div>
+
+      <!-- Pagination Dots -->
+      <div style="position: absolute; left: 162.5px; top: 564.5px">
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <ellipse cx="5.00002" cy="5" rx="5.00002" ry="5" fill="white" />
+        </svg>
+      </div>
+
+      <div style="position: absolute; left: 182.5px; top: 564.5px">
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <ellipse cx="5.00002" cy="5" rx="5.00002" ry="5" fill="#007E72" />
+        </svg>
+      </div>
+
+      <div style="position: absolute; left: 202.5px; top: 564.5px">
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <ellipse cx="5.00002" cy="5" rx="5.00002" ry="5" fill="white" />
+        </svg>
+      </div>
+
+      <!-- Primary Button -->
+      <a href="gonogo-setup-verbal-3.html">
+        <div
+          class="primaryBtnHover"
+          style="
+            width: 335px;
+            height: 48px;
+            position: absolute;
+            left: 20px;
+            top: 593px;
+          "
+        >
+          <div
+            style="
+              width: 335px;
+              height: 48px;
+              position: absolute;
+              left: 0;
+              top: 0;
+              background: #007e72;
+              border-radius: 100000px;
+            "
+          ></div>
+
+          <div style="position: absolute; left: 124px; top: 16px">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M3.33398 2L12.6673 8L3.33398 14V2Z" fill="white" />
+            </svg>
+          </div>
+
+          <div
+            style="
+              position: absolute;
+              left: 150px;
+              top: 15px;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: white;
+              font-size: 15px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Next
+          </div>
+        </div>
+      </a>
+
+      <!-- Secondary Button -->
+      <a
+        href="gonogo-setup-alertness.html"
+        style="
+          display: block;
+          width: 335px;
+          height: 48px;
+          position: absolute;
+          left: 20px;
+          top: 661px;
+          text-decoration: none;
+        "
+      >
+        <div
+          class="secondaryBtnHover"
+          style="
+            width: 335px;
+            height: 48px;
+            cursor: pointer;
+            position: relative;
+          "
+        >
+          <div
+            style="
+              width: 335px;
+              height: 48px;
+              position: absolute;
+              left: 0;
+              top: 0;
+              background: white;
+              border-radius: 100000px;
+              border: 1px #007e72 solid;
+            "
+          ></div>
+
+          <div style="position: absolute; left: 101.5px; top: 16px">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.33301 2.6665L9.99967 7.99984L3.33301 13.3332V2.6665Z"
+                stroke="#007E72"
+                stroke-width="1.65"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12.667 3.3335V12.6668"
+                stroke="#007E72"
+                stroke-width="1.65"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div
+            style="
+              position: absolute;
+              left: 127.5px;
+              top: 15px;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              color: #007e72;
+              font-size: 15px;
+              font-weight: 700;
+              word-wrap: break-word;
+            "
+          >
+            Skip Setup
+          </div>
+        </div>
+      </a>
+
+      <!-- Footer Navigation Section -->
+      <div
+        style="
+          width: 375px;
+          height: 83px;
+          left: 0;
+          top: 729px;
+          position: absolute;
+          background: #007e72;
+        "
+      >
+        <!-- Selected Navigation Button -->
+        <div style="left: 105px; top: 6px; position: absolute">
+          <svg
+            width="75"
+            height="60"
+            viewBox="0 0 75 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 11.5385C0 5.16595 4.47715 0 10 0H65C70.5229 0 75 5.16595 75 11.5385V48.4615C75 54.8341 70.5229 60 65 60H10C4.47715 60 0 54.8341 0 48.4615V11.5385Z"
+              fill="#014841"
+            />
+          </svg>
+        </div>
+
+        <!-- Home Button -->
+        <div
+          style="
+            width: 75px;
+            height: 44px;
+            left: 15px;
+            top: 10px;
+            position: absolute;
+          "
+        >
+          <div style="left: 26.5px; top: 0; position: absolute">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.75 8.25016L11 1.8335L19.25 8.25016V18.3335C19.25 18.8197 19.0568 19.286 18.713 19.6299C18.3692 19.9737 17.9029 20.1668 17.4167 20.1668H4.58333C4.0971 20.1668 3.63079 19.9737 3.28697 19.6299C2.94315 19.286 2.75 18.8197 2.75 18.3335V8.25016Z"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8.25 20.1667V11H13.75V20.1667"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div
+            style="
+              left: 17.5px;
+              top: 27px;
+              position: absolute;
+              text-align: center;
+              justify-content: center;
+              display: flex;
+              flex-direction: column;
+              color: white;
+              font-size: 14px;
+              font-weight: 600;
+              word-wrap: break-word;
+            "
+          >
+            Home
+          </div>
+        </div>
+
+        <!-- Tests Button -->
+        <div
+          style="
+            width: 75px;
+            height: 44px;
+            left: 105px;
+            top: 10px;
+            position: absolute;
+          "
+        >
+          <div style="left: 26.5px; top: 0; position: absolute">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13.7497 1.83301H8.24967C7.74341 1.83301 7.33301 2.24341 7.33301 2.74967V4.58301C7.33301 5.08927 7.74341 5.49967 8.24967 5.49967H13.7497C14.2559 5.49967 14.6663 5.08927 14.6663 4.58301V2.74967C14.6663 2.24341 14.2559 1.83301 13.7497 1.83301Z"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14.667 3.66699H16.5003C16.9866 3.66699 17.4529 3.86015 17.7967 4.20396C18.1405 4.54778 18.3337 5.0141 18.3337 5.50033V18.3337C18.3337 18.8199 18.1405 19.2862 17.7967 19.63C17.4529 19.9738 16.9866 20.167 16.5003 20.167H5.50033C5.0141 20.167 4.54778 19.9738 4.20396 19.63C3.86015 19.2862 3.66699 18.8199 3.66699 18.3337V5.50033C3.66699 5.0141 3.86015 4.54778 4.20396 4.20396C4.54778 3.86015 5.0141 3.66699 5.50033 3.66699H7.33366"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11 10.0835H14.6667"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M11 14.6665H14.6667"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.33301 10.083H7.34301"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.33301 14.667H7.34301"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div
+            style="
+              left: 18.5px;
+              top: 27px;
+              position: absolute;
+              text-align: center;
+              justify-content: center;
+              display: flex;
+              flex-direction: column;
+              color: white;
+              font-size: 14px;
+              font-weight: 600;
+              word-wrap: break-word;
+            "
+          >
+            Tests
+          </div>
+        </div>
+
+        <!-- Progress Button -->
+        <div
+          style="
+            width: 75px;
+            height: 44px;
+            left: 195px;
+            top: 10px;
+            position: absolute;
+          "
+        >
+          <div style="left: 26px; top: 0; position: absolute">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21.0837 5.5L12.3753 14.2083L7.79199 9.625L0.916992 16.5"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15.583 5.5H21.083V11"
+                stroke="white"
+                stroke-width="1.83333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div
+            style="
+              left: 7px;
+              top: 27px;
+              position: absolute;
+              text-align: center;
+              justify-content: center;
+              display: flex;
+              flex-direction: column;
+              color: white;
+              font-size: 14px;
+              font-weight: 600;
+              word-wrap: break-word;
+            "
+          >
+            Progress
+          </div>
+        </div>
+
+        <!-- Settings Button -->
+        <div
+          style="
+            width: 75px;
+            height: 44px;
+            left: 285px;
+            top: 10px;
+            position: absolute;
+          "
+        >
+          <div style="left: 26.5px; top: 0; position: absolute">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_7519_744)">
+                <path
+                  d="M11 13.75C12.5188 13.75 13.75 12.5188 13.75 11C13.75 9.48122 12.5188 8.25 11 8.25C9.48122 8.25 8.25 9.48122 8.25 11C8.25 12.5188 9.48122 13.75 11 13.75Z"
+                  stroke="white"
+                  stroke-width="1.83333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M17.7837 13.7503C17.6616 14.0268 17.6252 14.3335 17.6792 14.6309C17.7331 14.9282 17.8748 15.2026 18.0862 15.4187L18.1412 15.4737C18.3116 15.6439 18.4468 15.8461 18.5391 16.0687C18.6314 16.2912 18.6789 16.5298 18.6789 16.7707C18.6789 17.0117 18.6314 17.2502 18.5391 17.4728C18.4468 17.6954 18.3116 17.8976 18.1412 18.0678C17.9709 18.2383 17.7687 18.3735 17.5461 18.4658C17.3236 18.558 17.085 18.6055 16.8441 18.6055C16.6031 18.6055 16.3646 18.558 16.142 18.4658C15.9195 18.3735 15.7173 18.2383 15.547 18.0678L15.492 18.0128C15.276 17.8015 15.0016 17.6597 14.7042 17.6058C14.4068 17.5519 14.1001 17.5883 13.8237 17.7103C13.5525 17.8265 13.3213 18.0195 13.1584 18.2654C12.9956 18.5113 12.9082 18.7995 12.907 19.0945V19.2503C12.907 19.7366 12.7138 20.2029 12.37 20.5467C12.0262 20.8905 11.5599 21.0837 11.0737 21.0837C10.5874 21.0837 10.1211 20.8905 9.7773 20.5467C9.43348 20.2029 9.24033 19.7366 9.24033 19.2503V19.1678C9.23323 18.8644 9.13502 18.5702 8.95846 18.3233C8.7819 18.0764 8.53517 17.8884 8.25033 17.7837C7.97384 17.6616 7.66715 17.6252 7.36979 17.6792C7.07242 17.7331 6.79803 17.8748 6.58199 18.0862L6.52699 18.1412C6.35673 18.3116 6.15453 18.4468 5.93197 18.5391C5.7094 18.6314 5.47084 18.6789 5.22991 18.6789C4.98898 18.6789 4.75042 18.6314 4.52785 18.5391C4.30529 18.4468 4.10309 18.3116 3.93283 18.1412C3.76237 17.9709 3.62714 17.7687 3.53488 17.5461C3.44262 17.3236 3.39513 17.085 3.39513 16.8441C3.39513 16.6031 3.44262 16.3646 3.53488 16.142C3.62714 15.9195 3.76237 15.7173 3.93283 15.547L3.98783 15.492C4.21453 15.2701 4.36572 14.9825 4.42 14.67C4.47429 14.3574 4.42892 14.0357 4.29033 13.7503C4.17413 13.4792 3.98118 13.248 3.73525 13.0851C3.48932 12.9222 3.20113 12.8348 2.90616 12.8337H2.75033C2.2641 12.8337 1.79778 12.6405 1.45396 12.2967C1.11015 11.9529 0.916992 11.4866 0.916992 11.0003C0.916992 10.5141 1.11015 10.0478 1.45396 9.70396C1.79778 9.36015 2.2641 9.16699 2.75033 9.16699H2.83283C3.1278 9.16582 3.41599 9.07841 3.66192 8.91554C3.90785 8.75268 4.10079 8.52145 4.21699 8.25033C4.33901 7.97384 4.37541 7.66715 4.3215 7.36979C4.26758 7.07242 4.12582 6.79803 3.91449 6.58199L3.85949 6.52699C3.68904 6.35673 3.55381 6.15453 3.46155 5.93197C3.36929 5.7094 3.3218 5.47084 3.3218 5.22991C3.3218 4.98898 3.36929 4.75042 3.46155 4.52785C3.55381 4.30529 3.68904 4.10309 3.85949 3.93283C4.02976 3.76237 4.23196 3.62714 4.45452 3.53488C4.67708 3.44262 4.91565 3.39513 5.15658 3.39513C5.3975 3.39513 5.63607 3.44262 5.85863 3.53488C6.0812 3.62714 6.28339 3.76237 6.45366 3.93283L6.50866 3.98783C6.73057 4.21453 7.01814 4.36572 7.3307 4.42C7.64326 4.47429 7.96497 4.42892 8.25033 4.29033C8.52145 4.17413 8.75268 3.98118 8.91554 3.73525C9.07841 3.48932 9.16582 3.20113 9.16699 2.90616V2.75033C9.16699 2.2641 9.36015 1.79778 9.70396 1.45396C10.0478 1.11015 10.5141 0.916992 11.0003 0.916992C11.4866 0.916992 11.9529 1.11015 12.2967 1.45396C12.6405 1.79778 12.8337 2.2641 12.8337 2.75033V2.83283C12.8348 3.1278 12.9222 3.41599 13.0851 3.66192C13.248 3.90785 13.4792 4.10079 13.7503 4.21699C14.0268 4.33901 14.3335 4.37541 14.6309 4.3215C14.9282 4.26758 15.2026 4.12582 15.4187 3.91449L15.4737 3.85949C15.6439 3.68904 15.8461 3.55381 16.0687 3.46155C16.2912 3.36929 16.5298 3.3218 16.7707 3.3218C17.0117 3.3218 17.2502 3.36929 17.4728 3.46155C17.6954 3.55381 17.8976 3.68904 18.0678 3.85949C18.2383 4.02976 18.3735 4.23196 18.4658 4.45452C18.558 4.67708 18.6055 4.91565 18.6055 5.15658C18.6055 5.3975 18.558 5.63607 18.4658 5.85863C18.3735 6.0812 18.2383 6.28339 18.0678 6.45366L18.0128 6.50866C17.7981 6.73898 17.6606 7.03059 17.6195 7.34281C17.5784 7.65503 17.6358 7.97229 17.7837 8.25033C17.8999 8.52145 18.0928 8.75268 18.3387 8.91554C18.5847 9.07841 18.8729 9.16582 19.1678 9.16699H19.2503C19.7366 9.16699 20.2029 9.36015 20.5467 9.70396C20.8905 10.0478 21.0837 10.5141 21.0837 11.0003C21.0837 11.4866 20.8905 11.9529 20.5467 12.2967C20.2029 12.6405 19.7366 12.8337 19.2503 12.8337H19.1678C18.8729 12.8348 18.5847 12.9222 18.3387 13.0851C18.0928 13.248 17.8999 13.4792 17.7837 13.7503Z"
+                  stroke="white"
+                  stroke-width="1.83333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_7519_744">
+                  <rect width="22" height="22" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+
+          <div
+            style="
+              left: 9px;
+              top: 27px;
+              position: absolute;
+              text-align: center;
+              justify-content: center;
+              display: flex;
+              flex-direction: column;
+              color: white;
+              font-size: 14px;
+              font-weight: 600;
+              word-wrap: break-word;
+            "
+          >
+            Settings
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

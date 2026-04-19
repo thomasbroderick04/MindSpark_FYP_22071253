@@ -1,0 +1,12 @@
+/* The gonogo-interaction-states.css file contains the selection states for selectable buttons */
+
+   .selected {
+    background: #5E5E5E !important;
+    color: #FFFFFF !important;
+  }
+  
+  .unselected {
+    background: #BBBBBB !important;
+    color: #333333 !important;
+  }
+  

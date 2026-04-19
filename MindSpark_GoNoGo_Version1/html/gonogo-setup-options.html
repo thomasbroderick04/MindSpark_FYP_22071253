@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="../css/gonogo-interaction-states.css">
+</head>
+
+<script>
+    // Wait until the DOM is fully loaded before any JS starts to run.
+    document.addEventListener("DOMContentLoaded", () => {
+
+    // Get all interactive buttons from the DOM
+    const verbalBtn = document.getElementById("verbalBtn");
+    const screenBtn = document.getElementById("screenBtn");
+    const audioOnBtn = document.getElementById("audioYes");
+    const audioOffBtn = document.getElementById("audioNo");
+
+    // Default selections. If no response method is stored,
+    // default to the screen resppnse selection, which is represented by "S".
+    if (!localStorage.getItem("Response_Method")) {
+      localStorage.setItem("Response_Method", "S");
+    }
+    // Default selections. If no audio feedback is stored,
+    // default to the no audio feedback selection, which is represented by "N".
+    if (!localStorage.getItem("Audio_Feedback")) {
+      localStorage.setItem("Audio_Feedback", "N");
+    }
+
+    // Updates button styles based on selected response method.
+    function updateVisualSelection(method) {
+      if (method === "V") {
+        verbalBtn.style.background = "#5E5E5E";
+        verbalBtn.style.color = "#FFFFFF";
+
+        screenBtn.style.background = "#BBBBBB";
+        screenBtn.style.color = "#333333";
+      } else {
+        screenBtn.style.background = "#5E5E5E";
+        screenBtn.style.color = "#FFFFFF";
+
+        verbalBtn.style.background = "#BBBBBB";
+        verbalBtn.style.color = "#333333";
+      }
+    }
+
+    // Apply the correct visual state based on the selected response method.
+    const currentMethod = localStorage.getItem("Response_Method");
+    updateVisualSelection(currentMethod);
+
+    // When verbal is selected
+    verbalBtn.addEventListener("click", () => {
+      localStorage.setItem("Response_Method", "V");
+      updateVisualSelection("V");
+    });
+    // When screen is selected
+    screenBtn.addEventListener("click", () => {
+      localStorage.setItem("Response_Method", "S");
+      updateVisualSelection("S");
+    });
+    // Turn audio feedback on
+    audioOnBtn.addEventListener("click", () => {
+      localStorage.setItem("Audio_Feedback", "Y");
+    });
+    // Turn audio feedback off 
+    audioOffBtn.addEventListener("click", () => {
+      localStorage.setItem("Audio_Feedback", "N");
+    });
+
+  });
+</script>
+
+<body
+  style="
+    margin:0;
+    background:#FFFFFF;
+  "
+>
+
+  <!-- Main app container -->
+  <div
+    style="
+      width: 375px;
+      height: 812px;
+      background: #EBEBEB;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: Phetsarath, sans-serif;
+      overflow: hidden;
+    "
+  >
+    <!-- Header bar -->
+    <div
+      style="
+        position: absolute;
+        width: 375px;
+        height: 85px;
+        background: #ABAAA6;
+      "
+    ></div>
+
+    <!-- Page title -->
+    <div
+      style="
+        position: absolute;
+        top: 50px;
+        left: 30px;
+        width: 190px;
+        text-align: center;
+        font-size: 17px;
+        font-weight: 700;
+        color: #333;
+      "
+    >
+      Go/No-Go Test Options
+    </div>
+
+    <!-- Outer content card -->
+    <div
+      style="
+        position:absolute;
+        top:95px;
+        width:375px;
+        height:517px;
+        background:#DEDEDE;
+        border:1px solid #CCC;
+      "
+    ></div>
+
+    <!-- Inner content card -->
+    <div
+      style="
+        position:absolute;
+        top:108px;
+        left:10px;
+        width:355px;
+        height:494px;
+        background:#EFEFEF;
+        border:1px solid #CCC;
+        border-radius:10px;
+      "
+    ></div>
+
+    <!-- Stimulus selection -->
+    <div
+      style="
+        position:absolute;
+        top:118px;
+        left:20px;
+        font-size:16px;
+        font-weight:700;
+        color:#333;
+      "
+    >
+      1. What will you see?
+    </div>
+
+    <!-- Description -->
+    <div
+      style="
+        position:absolute;
+        top:150px;
+        left:20px;
+        width:217px;
+        font-size:11px;
+        color:#333;
+      "
+    >
+      Choose the type of symbol to be displayed
+    </div>
+
+    <!-- Stimulus Options -->
+    <!-- Shapes Button -->
+    <div
+      style="
+        position:absolute;
+        top:177px;
+        left:20px;
+        width:65px;
+        height:40px;
+        background:#5E5E5E;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:10px;
+        font-weight:700;
+        color:#FFF;
+      "
+    >
+      Shapes
+    </div>
+
+    <!-- Letters Button -->
+    <div
+      style="
+        position:absolute;
+        top:177px;
+        left:110px;
+        width:65px;
+        height:40px;
+        background:#BBBBBB;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:10px;
+        font-weight:700;
+      "
+    >
+      Letters
+    </div>
+
+    <!-- Garden Pictures Button -->
+    <div
+      style="
+        position:absolute;
+        top:177px;
+        left:200px;
+        width:65px;
+        height:40px;
+        background:#BBBBBB;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:10px;
+        font-weight:700;
+        text-align:center;
+      "
+    >
+      Garden<br>Pictures
+    </div>
+
+    <!-- Postal Pictures Button -->
+    <div
+      style="
+        position:absolute;
+        top:177px;
+        left:290px;
+        width:65px;
+        height:40px;
+        background:#BBBBBB;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:10px;
+        font-weight:700;
+        text-align:center;
+      "
+    >
+      Postal<br>Pictures
+    </div>
+
+    <!-- Go/No-Go Symbol Labels -->
+    <div
+      style="
+        position:absolute;
+        left:82px;
+        top:237px;
+        width:59px;
+        height:32px;
+        font-size:11px;
+        font-weight:700;
+        line-height:15px;
+        text-align:center;
+        color:#333;
+      "
+    >
+      Go Symbol<br>(Respond)
+    </div>
+
+    <div
+      style="
+        position:absolute;
+        left:217.5px;
+        top:237px;
+        width:94px;
+        height:32px;
+        font-size:11px;
+        font-weight:700;
+        line-height:15px;
+        text-align:center;
+        color:#333;
+      "
+    >
+      No-Go Symbol<br>(Do Not Respond)
+    </div>
+
+    <!-- Go/No-Go Example Stimulus -->
+    <div
+      style="
+        position:absolute;
+        left:81px;
+        top:276px;
+        width:58px;
+        height:53px;
+        background:#FFBF00;
+      "
+    ></div>
+
+    <div
+      style="
+        position:absolute;
+        left:236px;
+        top:276px;
+        width:58px;
+        height:53px;
+        background:#0800FF;
+        border-radius:50%;
+      "
+    ></div>
+
+    <!-- Response Method Section -->
+    <div
+      style="
+        position:absolute;
+        top:353px;
+        left:20px;
+        font-size:16px;
+        font-weight:700;
+        color:#333;
+      "
+    >
+      2. Response Method
+    </div>
+
+    <div
+      style="
+        position:absolute;
+        top:381px;
+        left:20px;
+        width:318px;
+        font-size:11px;
+        color:#333;
+      "
+    >
+      Choose how you would like to submit your response to the test
+    </div>
+
+    <!-- Response Method Options -->
+    <div
+      id="verbalBtn"
+      class="unselected"
+      style="
+        position:absolute;
+        left:105px;
+        top:413px;
+        width:70px;
+        height:40px;
+        background:#BBBBBB;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:10px;
+        font-weight:700;
+        text-align:center;
+      "
+    >
+      Verbal<br />response
+    </div>
+
+    <div
+      id="screenBtn"
+      class="unselected"
+      style="
+        position:absolute;
+        left:200px;
+        top:413px;
+        width:70px;
+        height:40px;
+        background:#BBBBBB;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:10px;
+        font-weight:700;
+        text-align:center;
+      "
+    >
+      Screen<br />select
+    </div>
+
+    <!-- Audio Options Section -->
+    <div
+      style="
+        position:absolute;
+        top:483px;
+        left:20px;
+        font-size:16px;
+        font-weight:700;
+        color:#333;
+      "
+    >
+      3. Audio Options
+    </div>
+
+    <!-- Audio Options Description -->
+    <div
+      style="
+        position:absolute;
+        top:511px;
+        left:20px;
+        width:284px;
+        font-size:11px;
+        color:#333;
+      "
+    >
+      Choose if you wish to hear audio along with the symbols
+    </div>
+
+    <!-- Audio Options -->
+    <div
+      id="audioYes"
+      class="selected"
+      style="
+        position:absolute;
+        left:105px;
+        top:543px;
+        width:70px;
+        height:40px;
+        background:#5E5E5E;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:11px;
+        font-weight:700;
+        color:#FFF;
+      "
+    >
+      Yes
+    </div>
+
+    <div
+      id="audioNo"
+      class="unselected"
+      style="
+        position:absolute;
+        left:200px;
+        top:543px;
+        width:70px;
+        height:40px;
+        background:#BBBBBB;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:11px;
+        font-weight:700;
+      "
+    >
+      No
+    </div>
+
+    <!-- Primary Button -->
+    <a href="gonogo-setup-alertness.html">
+      <div
+        style="
+          position:absolute;
+          top:631.5px;
+          left:45px;
+          width:285px;
+          height:35px;
+          background:#5E5E5E;
+          border-radius:10px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:11px;
+          font-weight:700;
+          color:#FFF;
+        "
+      >
+        Proceed to alertness questions
+      </div>
+    </a>
+
+    <!-- Secondary Button  -->
+    <a href="index.html">
+      <div
+        style="
+          position:absolute;
+          top:674.5px;
+          left:45px;
+          width:285px;
+          height:35px;
+          background:#BBBBBB;
+          border-radius:10px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:12px;
+          font-weight:700;
+          color:#333;
+        "
+      >
+        Return to the test overview
+      </div>
+    </a>
+
+    <!-- Footer Navigation Section -->
+    <div
+      style="
+        width:375px;
+        height:83px;
+        position:absolute;
+        left:0px;
+        top:729px;
+        background:#7D7D7D;
+      "
+    >
+
+      <!-- Home Button -->
+      <div
+        style="
+          width:70px;
+          height:40px;
+          position:absolute;
+          left:22px;
+          top:13.5px;
+          background:#BBBBBB;
+          border-radius:12px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        "
+      >
+        <div
+          style="
+            color:#333333;
+            font-size:13px;
+            font-weight:700;
+          "
+        >
+          Home
+        </div>
+      </div>
+    
+      <!-- Tests Button -->
+      <div
+        style="
+          width:70px;
+          height:40px;
+          position:absolute;
+          left:109px;
+          top:13.5px;
+          background:#BBBBBB;
+          border-radius:12px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        "
+      >
+        <div
+          style="
+            color:#333333;
+            font-size:13px;
+            font-weight:700;
+          "
+        >
+          Tests
+        </div>
+      </div>
+    
+      <!-- Progress Button -->
+      <div
+        style="
+          width:70px;
+          height:40px;
+          position:absolute;
+          left:196px;
+          top:13.5px;
+          background:#BBBBBB;
+          border-radius:12px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        "
+      >
+        <div
+          style="
+            color:#333333;
+            font-size:13px;
+            font-weight:700;
+          "
+        >
+          Progress
+        </div>
+      </div>
+    
+      <!-- Settings Button -->
+      <div
+        style="
+          width:70px;
+          height:40px;
+          position:absolute;
+          left:283px;
+          top:13.5px;
+          background:#BBBBBB;
+          border-radius:12px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        "
+      >
+        <div
+          style="
+            color:#333333;
+            font-size:13px;
+            font-weight:700;
+          "
+        >
+          Settings
+        </div>
+      </div>
+    
+    </div>
+
+    <script src="../js/practice.js"></script>
+  </div>
+
+</body>
+</html>

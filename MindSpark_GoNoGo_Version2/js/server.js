@@ -7,41 +7,37 @@ const { SerialPort } = require("serialport");
 const { ReadlineParser } = require("@serialport/parser-readline");
 const WebSocket = require("ws");
 
-// Defines the serial port path used to connect to the Arduino.
-const SERIAL_PATH = "/dev/cu.usbmodem2101"; // May be adjusted if required.
+const serialPath = "/dev/cu.usbmodem2101"; // May be adjusted if required.
 
-// Defines the communication speed used for the serial connection.
-const BAUD_RATE = 9600;
+const baudRate = 115200;
 
-// Only the stimulus pages should respond to vocal input.
-const LISTENING_PAGES = new Set(["Page2", "Page4"]);
+// Only these stimulus pages should respond to verbal input.
+const pagesListening = new Set(["Page2", "Page4"]);
 
-// Defines how long the system waits before treating the no new input as a timeout.
-const NO_INPUT_TIMEOUT_MS = 1000;
+// How long the system waits before treating no new input as a timeout.
+const missedResponseDelayMs = 1000;
 
-// Defines how often the timeout check runs.
-const TIMER_TICK_MS = 100;
+// This defines how often the system checks for timeouts.
+const timerCheckIntervalMs = 100;
 
-// Stores the page currently active in the browser.
 let activePage = null;
 
-// Tracks whether the current page should listen for vocal input.
 let isListening = false;
 
-// Stores the most recent raw serial line received.
+// This checks the last raw line received from the serial (ths is used to avoid any duplicates).
 let lastRawLine = null;
 
-// Stores the most recent valid 'Go' number received from the serial input.
+// This stores the most recent 'Go' number received from the serial input.
 let lastGoNumber = null;
 
-// Stores the 'Go' number present when the current page was entered.
+// This stores the 'Go' number present when the current page was entered.
 let pageBaselineGoNumber = null;
 
-// Stores the time of the last accepted input.
-let lastAcceptedTime = Date.now();
+// This stores the time of the last response input.
+let lastResponseTime = Date.now();
 
-// Stores the last accepted serial text.
-let lastAcceptedText = "";
+// This stores the last response serial text that was accepted.
+let lastResponseText = "";
 
 // Creates the WebSocket server used to communicate with the browser pages.
 const wss = new WebSocket.Server({ port: 8080 });
@@ -75,11 +71,11 @@ wss.on("connection", (ws) => {
     // decide whether this page should currently listen for vocal input.
     if (data.type === "page_enter" && typeof data.page === "string") {
       activePage = data.page;
-      isListening = LISTENING_PAGES.has(activePage);
+      isListening = pagesListening.has(activePage);
 
       // Reset baseline so old serial data doesn't retrigger
       pageBaselineGoNumber = lastGoNumber;
-      lastAcceptedTime = Date.now();
+      lastResponseTime = Date.now();
 
       console.log(
         `[WS] Active page: ${activePage}, listening=${isListening}, baselineGo=${pageBaselineGoNumber}`
@@ -87,32 +83,32 @@ wss.on("connection", (ws) => {
     }
   });
 
-  // Log when the browser disconnects.
+  // This simply logs when the browser disconnects.
   ws.on("close", () => {
     console.log("[WS] Browser disconnected");
   });
 });
 
-// Opens the serial connection to the Arduino.
+// This opens the serial connection to the Arduino.
 const port = new SerialPort({
-  path: SERIAL_PATH,
-  baudRate: BAUD_RATE
+  path: serialPath,
+  baudRate: baudRate
 });
 
-// Splits incoming serial data into lines.
+// This breaks incoming serial data into lines.
 const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
 
-// Confirm that the serial port opened successfully.
+// This confirms that the serial port has successfully opened.
 port.on("open", () => {
-  console.log(`[SERIAL] Opened ${SERIAL_PATH} @ ${BAUD_RATE}`);
+  console.log(`[SERIAL] Opened ${serialPath} @ ${baudRate}`);
 });
 
-// Document any serial connection errors.
+// This documents any serial connection errors.
 port.on("error", (err) => {
   console.error("[SERIAL] Error:", err.message);
 });
 
-// Extract the number from serial input in the format "Go <number>".
+// Extract the number from serial input in the format of "Go <number>".
 function parseGoNumber(line) {
   const match = line.match(/^Go\s*(\d+)$/i);
   if (!match) return null;
@@ -137,11 +133,9 @@ parser.on("data", (data) => {
     lastGoNumber = goNum;
   }
 
-  // Only react during listening pages
   // Ignore serial input unless the current page is meant to listen for it.
   if (!isListening) return;
 
-  // Must be newer than page baseline
   // Ignore older Go values so input from a previous page does not retrigger here.
   if (
     goNum !== null &&
@@ -151,11 +145,10 @@ parser.on("data", (data) => {
     return;
   }
 
-  // Accept only new text
   // Only accept the line if it is different from the last accepted input.
-  if (line !== lastAcceptedText) {
-    lastAcceptedText = line;
-    lastAcceptedTime = Date.now();
+  if (line !== lastResponseText) {
+    lastResponseText = line;
+    lastResponseTime = Date.now();
 
     console.log("[VOICE TRIGGER]", line);
 
@@ -163,7 +156,7 @@ parser.on("data", (data) => {
     broadcast({
       type: "event",
       reason: "serial_changed",
-      lastSerial: lastAcceptedText
+      lastSerial: lastResponseText
     });
   }
 });
@@ -175,15 +168,15 @@ setInterval(() => {
   const now = Date.now();
 
   // If too much time has passed since the last accepted input, send a timeout event.
-  if (now - lastAcceptedTime >= NO_INPUT_TIMEOUT_MS) {
-    lastAcceptedTime = now;
+  if (now - lastResponseTime >= missedResponseDelayMs) {
+    lastResponseTime = now;
 
     console.log("[TIMEOUT] No new serial input");
 
     broadcast({
       type: "event",
       reason: "timeout",
-      lastSerial: lastAcceptedText || "—"
+      lastSerial: lastResponseText || "—"
     });
   }
-}, TIMER_TICK_MS);
+}, timerCheckIntervalMs);
