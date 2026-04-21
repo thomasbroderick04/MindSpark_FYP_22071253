@@ -7,7 +7,7 @@ const { SerialPort } = require("serialport");
 const { ReadlineParser } = require("@serialport/parser-readline");
 const WebSocket = require("ws");
 
-// const serialPath = "/dev/cu.usbmodem2101"; // May be adjusted if required.
+const serialPath = "/dev/cu.usbmodem2101"; // May be adjusted if required.
 
 const baudRate = 115200;
 
